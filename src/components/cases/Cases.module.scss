@@ -1,0 +1,121 @@
+@use "../../styles/tokens" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 2.6vw, 40px);
+
+  @media (max-width: 820px) {
+    grid-template-columns: 1fr;
+  }
+}
+.proj {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--bg-2);
+  transition:
+    border-color 0.4s,
+    transform 0.5s var(--ease-out);
+
+  &:hover {
+    border-color: var(--line-2);
+    transform: translateY(-4px);
+
+    .open svg {
+      transform: translate(4px, -4px);
+    }
+  }
+
+  &.wide {
+    grid-column: span 2;
+
+    .media {
+      aspect-ratio: 21/9;
+    }
+    @media (max-width: 820px) {
+      grid-column: span 1;
+      .media {
+        aspect-ratio: 16/10;
+      }
+    }
+  }
+}
+.media {
+  aspect-ratio: 16 / 10;
+  position: relative;
+  overflow: hidden;
+}
+.yr {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+}
+.body {
+  padding: clamp(24px, 2.6vw, 38px);
+
+  h2 {
+    font-size: clamp(24px, 2.8vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  p {
+    color: var(--muted);
+    margin-top: 14px;
+    font-size: 15.5px;
+    line-height: 1.55;
+    max-width: 48ch;
+  }
+}
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.open {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 24px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.35s var(--ease-out);
+  }
+}
+
+/* CTA band reused */
+.ctaBand {
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 160% at 80% 10%, rgba(164, 5, 28, 0.32), transparent 55%),
+    var(--bg-2);
+  padding: clamp(48px, 7vw, 96px);
+  text-align: center;
+
+  h2 {
+    font-size: clamp(34px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  p {
+    color: var(--ink-soft);
+    margin: 22px auto 0;
+    max-width: 50ch;
+    font-size: 18px;
+  }
+  .btn {
+    margin-top: 40px;
+  }
+}

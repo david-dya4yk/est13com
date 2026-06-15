@@ -1,0 +1,21 @@
+// EST 13 — design tokens
+$bg: #08080a;
+$bg-2: #0e0e11;
+$bg-3: #161619;
+$ink: #f4f3f0;
+$ink-soft: #cdccc8;
+$muted: #8a8a8d;
+
+$red: #c20f28;
+$red-deep: #a4051c;
+$red-ink: #e6354c;
+$red-glow: rgba(194, 15, 40, 0.45);
+
+$maxw: 1340px;
+$header-h: 78px;
+
+$mobile: 1020px;
+$mobile-sm: 620px;
+
+$ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
