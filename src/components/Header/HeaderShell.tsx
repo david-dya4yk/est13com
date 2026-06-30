@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useI18n, useCurrentLocale } from "@/locales/client";
@@ -24,6 +25,13 @@ export default function HeaderShell() {
   const [ddOpen, setDdOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubOpen, setMobileSubOpen] = useState(false);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileSubOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);
@@ -74,6 +82,7 @@ export default function HeaderShell() {
               <div className={s.dropdown}>
                 {SERVICES.map((sv, i) => {
                   const Ico = SERVICE_ICONS[sv.id];
+
                   return (
                     <Link
                       key={sv.id}
@@ -86,7 +95,6 @@ export default function HeaderShell() {
                       </span>
                       <span>
                         <span className={s.ddTt}>{t(`dd.${sv.id}.t`)}</span>
-                        <span className={s.ddSub}>{t(`dd.${sv.id}.s`)}</span>
                       </span>
                     </Link>
                   );
@@ -170,7 +178,9 @@ export default function HeaderShell() {
         >
           {t("nav.contacts")}
         </Link>
+
         <LangSwitcher variant="mobile" />
+
         <Link
           href={`${base}/contacts`}
           className="btn btn--primary btn--lg"

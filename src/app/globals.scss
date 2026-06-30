@@ -2,6 +2,21 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;500;700&display=swap");
 
+@font-face {
+  font-family: "Basenji";
+  src: url("/fonts/Basenji-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Basenji";
+  src: url("/fonts/Basenji-SemiBoldSlanted.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --bg: #{$bg};
   --bg-2: #{$bg-2};
@@ -20,6 +35,7 @@
 
   --font-display: "Bricolage Grotesque", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-basenji: "Basenji", var(--font-display);
 
   --maxw: #{$maxw};
   --gut: clamp(20px, 5vw, 64px);
@@ -307,7 +323,6 @@ h4 {
   }
 }
 
-/* shared page hero (inner pages) */
 .page-hero {
   position: relative;
   padding: calc(var(--header-h) + clamp(60px, 9vw, 130px)) 0 clamp(50px, 7vw, 90px);
@@ -469,5 +484,48 @@ h4 {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Page transition overlay: full-screen branded image curtain.
+   Wipes left → right via clip-path. Managed by <PageTransition>. */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: #000;
+  background-image: url("/assets/transition-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 100% 0 0);
+}
+
+.page-curtain--entering {
+  pointer-events: auto;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 900ms cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.page-curtain--holding {
+  pointer-events: auto;
+  clip-path: inset(0 0 0 0);
+}
+
+.page-curtain--leaving {
+  pointer-events: auto;
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 900ms cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+body.vt-locked {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-curtain--entering,
+  .page-curtain--leaving {
+    transition-duration: 0s;
   }
 }

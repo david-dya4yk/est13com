@@ -51,10 +51,9 @@
   }
 }
 
-.logoLg img {
-  height: 60px;
-  width: auto;
-  opacity: 0.96;
+.logoLg {
+  display: inline-block;
+  width: fit-content;
 }
 
 .blurb {
@@ -115,31 +114,17 @@
 
 .wordmark {
   position: relative;
-  font-weight: 800;
+  font-family: var(--font-basenji);
+  font-weight: 600;
   font-size: clamp(80px, 22vw, 300px);
   letter-spacing: -0.05em;
   line-height: 0.8;
-  margin-top: 60px;
+  margin: 60px auto 0;
   user-select: none;
   white-space: nowrap;
-  cursor: pointer;
   isolation: isolate;
   width: fit-content;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: -8% -3%;
-    z-index: -1;
-    border-radius: 24px;
-    background: radial-gradient(58% 130% at 32% 50%, rgba(194, 15, 40, 0.12), transparent 72%);
-    opacity: 0;
-    transition: opacity 0.7s var(--ease);
-    pointer-events: none;
-  }
-  &:hover::after {
-    opacity: 1;
-  }
+  text-align: center;
 
   .fwEst,
   .fw13 {
@@ -147,19 +132,23 @@
     display: inline-block;
     color: transparent;
     -webkit-text-stroke: 1px var(--line-2);
-
-    &::before {
-      content: attr(data-t);
-      position: absolute;
-      inset: 0;
-      -webkit-text-stroke: 0 transparent;
-      clip-path: inset(0 100% 0 0);
-      transition: clip-path 0.8s var(--ease-out);
-      will-change: clip-path;
-    }
   }
   .fw13 {
     -webkit-text-stroke-color: var(--red-deep);
+    margin-left: 0.12em;
+  }
+}
+
+.wmFill {
+  position: relative;
+  z-index: 1;
+
+  .fwEst::before,
+  .fw13::before {
+    content: attr(data-t);
+    position: absolute;
+    inset: 0;
+    -webkit-text-stroke: 0 transparent;
   }
   .fwEst::before {
     color: var(--ink);
@@ -167,34 +156,19 @@
   .fw13::before {
     color: var(--red-ink);
   }
-  &:hover .fwEst::before {
-    clip-path: inset(0 0 0 0);
-  }
-  &:hover .fw13::before {
-    clip-path: inset(0 0 0 0);
-    transition-delay: 0.22s;
-  }
+}
 
-  .brush {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    top: 46%;
-    pointer-events: none;
-    overflow: visible;
-    opacity: 0.4;
-    transition: opacity 0.6s var(--ease);
-    z-index: 2;
-  }
-  &:hover .brush {
-    opacity: 1;
-  }
-  .brush path {
-    fill: none;
-    stroke: var(--red);
-    stroke-width: 13;
-    stroke-linecap: round;
-    filter: url(#est13-rough);
-  }
+.wmOutline {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.wordmarkMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: crosshair;
+  z-index: 2;
 }

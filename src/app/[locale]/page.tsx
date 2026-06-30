@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { setStaticParamsLocale } from "next-international/server";
 import { getI18n, getCurrentLocale, getScopedI18n } from "@/locales/server";
@@ -6,6 +7,7 @@ import HeroMesh from "@/components/home/HeroMesh";
 import Typewriter from "@/components/home/Typewriter";
 import CountUp from "@/components/home/CountUp";
 import FaqItem from "@/components/home/FaqItem";
+import FeatReveal from "@/components/home/FeatReveal";
 import { ArrowRight, ArrowUpRight, FeatIcons } from "@/components/home/icons";
 import ukDict from "@/locales/uk";
 import enDict from "@/locales/en";
@@ -96,6 +98,13 @@ export default async function HomePage({
               key={id}
               href={`${base}/services#${id}`}
               className={s.svcCell}
+              style={
+                {
+                  "--svc-dur": `${(1.6 + Math.random() * 3).toFixed(2)}s`,
+                  "--svc-delay": `${(-Math.random() * 4).toFixed(2)}s`,
+                  "--svc-dir": Math.random() < 0.5 ? "normal" : "reverse",
+                } as CSSProperties
+              }
             >
               <span className={s.n}>{`0${i + 1}`}</span>
               <h3>{t(`dd.${id}.t`)}</h3>
@@ -196,7 +205,7 @@ export default async function HomePage({
             </div>
             <p className="lede">{home("feat.lede")}</p>
           </div>
-          <div className={s.featGrid}>
+          <FeatReveal className={s.featGrid}>
             {FEATURES.map((f, i) => (
               <div key={f} className={s.feat}>
                 <span className={s.featIco}>{FeatIcons[i]}</span>
@@ -204,7 +213,7 @@ export default async function HomePage({
                 <p>{home(`feat.${f}.d`)}</p>
               </div>
             ))}
-          </div>
+          </FeatReveal>
         </div>
       </section>
 
