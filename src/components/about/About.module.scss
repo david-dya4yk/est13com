@@ -140,6 +140,24 @@
   flex: none;
   transition: 0.3s;
 }
+.logoChipImg {
+  flex: none;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  height: clamp(26px, 3vw, 38px);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
 
 /* testimonials slider */
 .slider {

@@ -3,6 +3,7 @@ import { setStaticParamsLocale } from "next-international/server";
 import { getI18n, getCurrentLocale, getScopedI18n } from "@/locales/server";
 import PageHero from "@/components/PageHero";
 import ProjectGrid from "@/components/cases/ProjectGrid";
+import CursorInvert from "@/components/cases/CursorInvert";
 import s from "@/components/cases/Cases.module.scss";
 import { ArrowRight } from "@/components/home/icons";
 
@@ -23,6 +24,7 @@ export default async function CasesPage({
 
   return (
     <>
+      <CursorInvert />
       <PageHero
         kicker={cs("kicker")}
         title={cs("hero.title")}
@@ -32,12 +34,6 @@ export default async function CasesPage({
       <section className="section section--tight" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <ProjectGrid />
-          <p
-            className="form-note"
-            style={{ marginTop: 40, textAlign: "center" }}
-          >
-            {cs("note")}
-          </p>
         </div>
       </section>
 

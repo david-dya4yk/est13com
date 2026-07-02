@@ -1,6 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getI18n, getCurrentLocale } from "@/locales/server";
+import FooterLogo from "./FooterLogo";
+import Wordmark from "./Wordmark";
 import s from "./Footer.module.scss";
 
 const IconTg = () => (
@@ -33,13 +34,7 @@ export default async function Footer() {
         <div className={s.grid}>
           <div className={s.col}>
             <Link href={base} className={s.logoLg} aria-label="EST 13 — home">
-              <Image
-                src="/assets/est13_mark.png"
-                alt="EST 13"
-                width={195}
-                height={60}
-                unoptimized
-              />
+              <FooterLogo />
             </Link>
             <p className={s.blurb}>{t("foot.tag")}</p>
             <div className={s.socials}>
@@ -86,17 +81,7 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className={s.wordmark}>
-          <span className={s.fwEst} data-t="est">
-            est
-          </span>
-          <span className={s.fw13} data-t="13">
-            13
-          </span>
-          <svg className={s.brush} viewBox="0 0 1000 60" preserveAspectRatio="none">
-            <path d="M20 42 C 260 8, 520 56, 760 20 S 940 30, 982 24" />
-          </svg>
-        </div>
+        <Wordmark />
 
         <div className={s.bottom}>
           <span>{t("foot.rights")}</span>

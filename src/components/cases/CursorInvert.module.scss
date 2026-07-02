@@ -1,0 +1,24 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9998; /* just below the page-transition curtain (9999) */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+.cursor.on {
+  opacity: 1;
+}
+
+/* Hide the native cursor across the page while the invert cursor is active. */
+.hideCursor,
+.hideCursor * {
+  cursor: none !important;
+}

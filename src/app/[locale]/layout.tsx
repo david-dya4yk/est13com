@@ -5,6 +5,7 @@ import { getStaticParams } from "@/locales/server";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import SvgDefs from "@/components/SvgDefs";
+import PageTransition from "@/components/PageTransition";
 
 export function generateStaticParams() {
   return getStaticParams();
@@ -27,9 +28,11 @@ export default async function LocaleLayout({
       <body>
         <I18nProviderClient locale={locale}>
           <SvgDefs />
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <PageTransition>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </PageTransition>
         </I18nProviderClient>
       </body>
     </html>

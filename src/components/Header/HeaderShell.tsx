@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useI18n, useCurrentLocale } from "@/locales/client";
@@ -24,6 +25,30 @@ export default function HeaderShell() {
   const [ddOpen, setDdOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSubOpen, setMobileSubOpen] = useState(false);
+
+  const pathname = usePathname();
+
+  // Close the services dropdown with a small delay so the cursor can travel
+  // across the gap between the trigger and the panel without it snapping shut.
+  const ddCloseTimer = useRef<number | undefined>(undefined);
+  const openDd = () => {
+    if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    setDdOpen(true);
+  };
+  const closeDd = () => {
+    if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    ddCloseTimer.current = window.setTimeout(() => setDdOpen(false), 220);
+  };
+  useEffect(() => {
+    return () => {
+      if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileSubOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);
@@ -57,8 +82,8 @@ export default function HeaderShell() {
           <nav className={s.nav}>
             <div
               className={`${s.navItem} ${ddOpen ? s.open : ""}`}
-              onMouseEnter={() => setDdOpen(true)}
-              onMouseLeave={() => setDdOpen(false)}
+              onMouseEnter={openDd}
+              onMouseLeave={closeDd}
             >
               <Link
                 href={servicesHref}
@@ -74,6 +99,7 @@ export default function HeaderShell() {
               <div className={s.dropdown}>
                 {SERVICES.map((sv, i) => {
                   const Ico = SERVICE_ICONS[sv.id];
+
                   return (
                     <Link
                       key={sv.id}
@@ -86,7 +112,6 @@ export default function HeaderShell() {
                       </span>
                       <span>
                         <span className={s.ddTt}>{t(`dd.${sv.id}.t`)}</span>
-                        <span className={s.ddSub}>{t(`dd.${sv.id}.s`)}</span>
                       </span>
                     </Link>
                   );
@@ -170,7 +195,9 @@ export default function HeaderShell() {
         >
           {t("nav.contacts")}
         </Link>
+
         <LangSwitcher variant="mobile" />
+
         <Link
           href={`${base}/contacts`}
           className="btn btn--primary btn--lg"

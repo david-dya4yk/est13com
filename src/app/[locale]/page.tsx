@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { setStaticParamsLocale } from "next-international/server";
 import { getI18n, getCurrentLocale, getScopedI18n } from "@/locales/server";
@@ -6,6 +7,8 @@ import HeroMesh from "@/components/home/HeroMesh";
 import Typewriter from "@/components/home/Typewriter";
 import CountUp from "@/components/home/CountUp";
 import FaqItem from "@/components/home/FaqItem";
+import FeatReveal from "@/components/home/FeatReveal";
+import Testimonials from "@/components/home/Testimonials";
 import { ArrowRight, ArrowUpRight, FeatIcons } from "@/components/home/icons";
 import ukDict from "@/locales/uk";
 import enDict from "@/locales/en";
@@ -13,7 +16,6 @@ import enDict from "@/locales/en";
 const SERVICES = ["web", "bot", "ai", "brand"] as const;
 const FEATURES = ["f1", "f2", "f3", "f4", "f5", "f6"] as const;
 const FLOW = ["s1", "s2", "s3", "s4", "s5"] as const;
-const REVIEWS = ["r1", "r2", "r3", "r4"] as const;
 const CASES = [
   { key: "c1", tags: ["web", "brand"] as const, play: false },
   { key: "c2", tags: ["bot", "ai"] as const, play: true },
@@ -45,45 +47,44 @@ export default async function HomePage({
       <section className={s.hero}>
         <HeroMesh />
         <div className={s.heroInner}>
-          <div className={s.heroGrid}>
-            <div className={s.heroContent}>
-              <span className="kicker">{home("hero.kicker")}</span>
-              <h1 className="display">
-                {home("hero.titleBefore")} <Typewriter phrases={phrases} />
-              </h1>
-              <p className={`lede ${s.heroLede}`}>{home("hero.lede")}</p>
-              <div className={s.heroCta}>
-                <Link
-                  href={`${base}/contacts`}
-                  className="btn btn--primary btn--lg"
-                >
-                  <span>{t("cta.start")}</span>
-                  <span className="ico">
-                    <ArrowRight />
-                  </span>
-                </Link>
-              </div>
-              <div className={s.heroStats}>
-                <div className={s.hstat}>
-                  <div className={s.n}>
-                    <CountUp to={120} suffix="+" />
-                  </div>
-                  <div className={s.l}>{home("stat.projects")}</div>
-                </div>
-                <div className={s.hstat}>
-                  <div className={`${s.n} ${s.red}`}>
-                    <CountUp to={13} />
-                  </div>
-                  <div className={s.l}>{home("stat.niches")}</div>
-                </div>
-                <div className={s.hstat}>
-                  <div className={s.n}>
-                    <CountUp to={8} />
-                  </div>
-                  <div className={s.l}>{home("stat.years")}</div>
-                </div>
-              </div>
+          <span className={`kicker ${s.heroKicker}`}>
+            {home("hero.kicker")}
+          </span>
+          <div className={s.heroCenter}>
+            <h1 className="display">
+              {home("hero.titleBefore")} <Typewriter phrases={phrases} />
+            </h1>
+            <div className={s.heroCta}>
+              <Link
+                href={`${base}/contacts`}
+                className="btn btn--primary btn--lg"
+              >
+                <span>{t("cta.start")}</span>
+                <span className="ico">
+                  <ArrowRight />
+                </span>
+              </Link>
             </div>
+          </div>
+        </div>
+        <div className={s.heroStats}>
+          <div className={s.hstat}>
+            <div className={s.n}>
+              <CountUp to={120} suffix="+" />
+            </div>
+            <div className={s.l}>{home("stat.projects")}</div>
+          </div>
+          <div className={s.hstat}>
+            <div className={`${s.n} ${s.red}`}>
+              <CountUp to={13} />
+            </div>
+            <div className={s.l}>{home("stat.niches")}</div>
+          </div>
+          <div className={s.hstat}>
+            <div className={s.n}>
+              <CountUp to={8} />
+            </div>
+            <div className={s.l}>{home("stat.years")}</div>
           </div>
         </div>
       </section>
@@ -96,6 +97,13 @@ export default async function HomePage({
               key={id}
               href={`${base}/services#${id}`}
               className={s.svcCell}
+              style={
+                {
+                  "--svc-dur": `${(1.6 + Math.random() * 3).toFixed(2)}s`,
+                  "--svc-delay": `${(-Math.random() * 4).toFixed(2)}s`,
+                  "--svc-dir": Math.random() < 0.5 ? "normal" : "reverse",
+                } as CSSProperties
+              }
             >
               <span className={s.n}>{`0${i + 1}`}</span>
               <h3>{t(`dd.${id}.t`)}</h3>
@@ -113,7 +121,7 @@ export default async function HomePage({
         <div className="wrap">
           <div className="eyebrow-row">
             <div>
-              <span className="kicker">// 01</span>
+              <span className="kicker">01</span>
               <h2 className="h-sec" style={{ marginTop: 18 }}>
                 {home("cases.title")}
               </h2>
@@ -162,7 +170,7 @@ export default async function HomePage({
       <section className="section" style={{ background: "var(--bg-2)" }}>
         <div className={`wrap ${s.flow}`}>
           <div className={s.flowHead}>
-            <span className="kicker">// 02</span>
+            <span className="kicker">02</span>
             <h2 className="h-sec" style={{ marginTop: 18 }}>
               {home("flow.title")}
             </h2>
@@ -189,14 +197,14 @@ export default async function HomePage({
         <div className="wrap">
           <div className="eyebrow-row">
             <div>
-              <span className="kicker">// 03</span>
+              <span className="kicker">03</span>
               <h2 className="h-sec" style={{ marginTop: 18 }}>
                 {home("feat.title")}
               </h2>
             </div>
             <p className="lede">{home("feat.lede")}</p>
           </div>
-          <div className={s.featGrid}>
+          <FeatReveal className={s.featGrid}>
             {FEATURES.map((f, i) => (
               <div key={f} className={s.feat}>
                 <span className={s.featIco}>{FeatIcons[i]}</span>
@@ -204,7 +212,7 @@ export default async function HomePage({
                 <p>{home(`feat.${f}.d`)}</p>
               </div>
             ))}
-          </div>
+          </FeatReveal>
         </div>
       </section>
 
@@ -214,34 +222,18 @@ export default async function HomePage({
           className="wrap"
           style={{ marginBottom: "clamp(36px, 5vw, 56px)" }}
         >
-          <span className="kicker">// 04</span>
+          <span className="kicker">04</span>
           <h2 className="h-sec" style={{ marginTop: 18 }}>
             {home("rev.title")}
           </h2>
         </div>
-        <div className="marquee">
-          <div className={`marquee-row ${s.revRow}`}>
-            {[...REVIEWS, ...REVIEWS].map((r, idx) => (
-              <div key={`${r}-${idx}`} className={s.revCard}>
-                <div className={s.mark}>“</div>
-                <p className={s.q}>{home(`rev.${r}.q`)}</p>
-                <div className={s.who}>
-                  <span className={s.av} />
-                  <span>
-                    <span className={s.nm}>{home(`rev.${r}.n`)}</span>
-                    <span className={s.ro}>{home(`rev.${r}.r`)}</span>
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Testimonials />
       </section>
 
       {/* FAQ */}
       <section className="section" id="faq">
         <div className="wrap" style={{ maxWidth: 1000 }}>
-          <span className="kicker">// 05</span>
+          <span className="kicker">05</span>
           <h2
             className="h-sec"
             style={{ margin: "18px 0 clamp(36px, 5vw, 56px)" }}

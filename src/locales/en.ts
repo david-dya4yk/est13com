@@ -28,7 +28,7 @@ export default {
   },
   home: {
     hero: {
-      kicker: "// Web studio — est13.com · Code meets instinct",
+      kicker: "Web studio — est13.com · Code meets instinct",
       titleBefore: "A web studio turning ideas into",
       lede: "Websites, Telegram bots, AI solutions and branding. Full cycle — from diving into your business to launch and support.",
     },
@@ -46,9 +46,9 @@ export default {
     },
     cases: {
       title: "Selected work",
-      c1: { t: "[ Project name 01 ]", d: "[ Short description of the challenge and result. ]", year: "2026" },
-      c2: { t: "[ Project name 02 ]", d: "[ Short description of the challenge and result. ]", year: "2025" },
-      c3: { t: "[ Project name 03 ]", d: "[ Short description of the challenge and result. ]", year: "2025" },
+      c1: { t: "", d: "", year: "2026" },
+      c2: { t: "", d: "", year: "2025" },
+      c3: { t: "", d: "", year: "2025" },
     },
     tag: {
       web: "Website",
@@ -77,10 +77,36 @@ export default {
     },
     rev: {
       title: "Client testimonials",
-      r1: { q: "[ Space for a real client testimonial. Describe the outcome of the collaboration in 2–3 sentences. ]", n: "[ Full Name ]", r: "[ Role · Company ]" },
-      r2: { q: "[ Second testimonial. What stood out in the process and the result of working with EST 13. ]", n: "[ Full Name ]", r: "[ Role · Company ]" },
-      r3: { q: "[ Third client testimonial. Replace with real copy. ]", n: "[ Full Name ]", r: "[ Role · Company ]" },
-      r4: { q: "[ Fourth client testimonial. A couple of sentences about the result. ]", n: "[ Full Name ]", r: "[ Role · Company ]" },
+      r1: {
+        q: "They built the landing page with online booking exactly the way we wanted — stylish and clear. Requests started coming in the first week.",
+        n: "Fast Sauna",
+        r: "Private sauna, Krakow",
+      },
+      r2: {
+        q: "The site captures the mood of my work better than I hoped. The gallery loads instantly and clients love it.",
+        n: "Alexa Bodnar",
+        r: "Photographer, Minnesota",
+      },
+      r3: {
+        q: "A clean, fast website with a service catalog and estimate requests. The team ran the project from idea to launch with zero hassle.",
+        n: "Modo Floors",
+        r: "Flooring & remodeling, USA",
+      },
+      r4: {
+        q: "They made our online store fast and easy to use — conversion noticeably grew within the first month.",
+        n: "Dmytro Koval",
+        r: "Founder, e-commerce",
+      },
+      r5: {
+        q: "The Telegram bot took the routine off our support: clients get instant answers and we save hours every day.",
+        n: "Olena Marchenko",
+        r: "Marketing, services",
+      },
+      r6: {
+        q: "We integrated an AI assistant into our product — request handling got several times faster. Highly recommend.",
+        n: "Andrii Petrenko",
+        r: "CEO, SaaS",
+      },
     },
     faq: {
       title: "Frequently asked",
@@ -128,7 +154,7 @@ export default {
     okD: "We’ve received your request and will get back within 24 hours.",
   },
   srv: {
-    kicker: "// Services",
+    kicker: "Services",
     hero: {
       title: "Services that move business",
       lede: "Four directions, one approach: immersion in your task first, then a precise solution. Pick what you need now, or combine for a full cycle.",
@@ -140,8 +166,8 @@ export default {
       d2: "Corporate sites",
       d3: "E-commerce",
       d4: "Web apps",
-      c1: { t: "[ Project name · landing ]", d: "[ Describe the landing challenge and solution. Replace with a real case. ]", r: "+38% conversions" },
-      c2: { t: "[ Project name · e-commerce ]", d: "[ Describe the online store: what you built and the result. ]", r: "×2 sales" },
+      c1: { t: "Product launch landing", d: "A single-page site focused on conversion: a clear offer, social proof and a lead form.", r: "+38% conversions" },
+      c2: { t: "Corporate services site", d: "A multi-page site with a service catalog, cases and form integrations.", r: "×2 sales" },
     },
     bot: {
       bignum: "02 — BOTS",
@@ -150,8 +176,8 @@ export default {
       d2: "Support & FAQ",
       d3: "Payments & CRM",
       d4: "Routine automation",
-      c1: { t: "[ Project name · sales bot ]", d: "[ Describe what you automated in Telegram and the effect. ]", r: "−60% routine" },
-      c2: { t: "[ Project name · CRM bot ]", d: "[ Describe the bot integration with CRM and payments. ]", r: "24/7 support" },
+      c1: { t: "Order-taking bot", d: "A Telegram bot that guides the client from choice to payment without a manager.", r: "−60% routine" },
+      c2: { t: "Support & FAQ bot", d: "Auto-answers to common questions and escalation of complex cases to an operator.", r: "24/7 support" },
     },
     ai: {
       bignum: "03 — AI",
@@ -160,8 +186,8 @@ export default {
       d2: "Content generation",
       d3: "Data analytics",
       d4: "API integration",
-      c1: { t: "[ Project name · AI assistant ]", d: "[ Describe the AI assistant and its role in the product. ]", r: "×3 faster" },
-      c2: { t: "[ Project name · AI analytics ]", d: "[ Describe the AI-powered data analytics solution. ]", r: "−40% cost" },
+      c1: { t: "AI assistant for the site", d: "A chatbot on your data that answers clients and qualifies leads around the clock.", r: "×3 faster" },
+      c2: { t: "Request handling automation", d: "AI sorts, tags and summarizes incoming requests, freeing up the team.", r: "−40% cost" },
     },
     brand: {
       bignum: "04 — BRANDING",
@@ -170,11 +196,11 @@ export default {
       d2: "Identity",
       d3: "Brand book",
       d4: "Tone of voice",
-      c1: { t: "[ Project name · brand ]", d: "[ Describe the identity: from idea to a system of media. ]", r: "new brand" },
-      c2: { t: "[ Project name · identity ]", d: "[ Describe the rebrand and the renewed visual language. ]", r: "+recognition" },
+      c1: { t: "Identity from scratch", d: "Logo, palette and typography — a system that reads at first glance.", r: "new brand" },
+      c2: { t: "Rebranding & guidelines", d: "A refreshed image and usage rules across every brand medium.", r: "+recognition" },
     },
     appr: {
-      kicker: "// Approach",
+      kicker: "Approach",
       title: "How we create",
       lede: "Three pillars in every project. They work on their own, but deliver best together.",
       design: {
@@ -200,7 +226,7 @@ export default {
       },
     },
     form: {
-      kicker: "// Request",
+      kicker: "Request",
       title: "We’ll tailor a solution to your task",
       lede: "Leave a request — we’ll ask a few clarifying questions and come back with a vision and a rough plan.",
       k1: "Response",
@@ -210,29 +236,29 @@ export default {
     },
   },
   cs: {
-    kicker: "// Cases",
+    kicker: "Cases",
     hero: {
       title: "Cases that speak for us",
       lede: "A selection of projects across niches — from websites and bots to AI solutions and branding. Each one started with a real business challenge.",
     },
     f: { all: "All", web: "Sites", bot: "Bots", ai: "AI", brand: "Branding" },
-    p1: { t: "[ Flagship project ]", d: "[ Describe the key case: challenge, solution and result. A video demo or showreel works great here. ]" },
-    p2: { t: "[ Project 02 — website ]", d: "[ Short description of the project and the metrics achieved. Replace with a real case. ]" },
-    p3: { t: "[ Project 03 — bot + AI ]", d: "[ Short description: what was automated and the effect the client got. ]" },
-    p4: { t: "[ Project 04 — AI ]", d: "[ Short description of the AI solution and its role in the product. ]" },
-    p5: { t: "[ Project 05 — branding ]", d: "[ Short description of the identity: from idea to a system of media. ]" },
-    p6: { t: "[ Project 06 — site + bot ]", d: "[ Short description of a complex solution for the business. ]" },
-    note: "[ Replace the cards with real projects: photo or video, title, description and tags. ]",
+    p1: { t: "", d: "" },
+    p2: { t: "Fast Sauna — private sauna in Krakow", d: "Landing page for a private Finnish sauna and hot tub near Krakow. Online booking with guaranteed privacy, up to 12 guests, and easy selection of hours and add-ons." },
+    p3: { t: "Alexa Bodnar — photographer's website", d: "Portfolio website for a Minnesota wedding & lifestyle photographer. A cinematic gallery of work, brand story and online booking for sessions." },
+    p4: { t: "", d: "" },
+    p5: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring sales, installation and turnkey remodeling company. Service catalog, project showcase and a free on-site estimate request." },
+    p6: { t: "", d: "" },
+    note: "",
     cta: { t: "Want a result like this?", d: "Tell us about your task — and your project will be next on this list." },
   },
   ab: {
-    kicker: "// About",
+    kicker: "About",
     hero: {
       title: "A studio that thinks differently",
       lede: "EST 13 is a team of designers and engineers combining the structure of technology with living instinct. We don’t do it “like everyone” — we do it the way that works.",
     },
     story: {
-      kicker: "// Story",
+      kicker: "Story",
       title: "Code meets instinct",
       p1: "EST (established) is about stability, experience and a foundation. 13 is about the unconventional, going beyond the frame and daring to do it differently.",
       p2: "Together it’s a philosophy: black is logic, system and code; red is creativity, impulse and instinct. On that contrast we build products that look alive and work precisely.",
@@ -245,26 +271,26 @@ export default {
       s4: "happy clients",
     },
     val: {
-      kicker: "// Values",
+      kicker: "Values",
       title: "What we believe",
       v1: { t: "Logic + instinct", d: "Decisions based on data and experience, with the courage to trust the gut where it gives an edge." },
       v2: { t: "Not like everyone", d: "No templates. Every project is its own story with its own character and voice." },
       v3: { t: "Results, not process", d: "We care about the client’s metrics, not “pretty” mockups for the portfolio." },
     },
     logos: {
-      kicker: "// Clients",
+      kicker: "Clients",
       title: "Brands that trust us",
-      note: "[ Replace with real client logos. ]",
+      note: "",
     },
     rev: {
-      kicker: "// Reviews",
+      kicker: "Reviews",
       title: "What clients say",
-      r1: { q: "“[ Real client testimonial. Describe the outcome of the collaboration. ]”", n: "[ Full Name ]", r: "[ Role · Company ]" },
-      r2: { q: "“[ Second testimonial about working with the EST 13 team. ]”", n: "[ Full Name ]", r: "[ Role · Company ]" },
-      r3: { q: "“[ Third client testimonial. ]”", n: "[ Full Name ]", r: "[ Role · Company ]" },
+      r1: { q: "", n: "", r: "" },
+      r2: { q: "", n: "", r: "" },
+      r3: { q: "", n: "", r: "" },
     },
     faq: {
-      kicker: "// FAQ",
+      kicker: "FAQ",
       title: "Frequently asked",
       q1: "How big is the team?",
       a1: "The core is a small team — strategist, designers, developers and a manager. For large projects we bring in trusted specialists.",
@@ -277,12 +303,12 @@ export default {
     },
   },
   ct: {
-    kicker: "// Contacts",
+    kicker: "Contacts",
     hero: {
       title: "Let’s talk",
       lede: "Got a task, an idea or just a question? Leave a request — we’ll come back with a vision of the solution within 24 hours.",
     },
     form: { title: "Tell us about the project" },
-    ch: { title: "// Our contacts" },
+    ch: { title: "Our contacts" },
   },
 } as const;
