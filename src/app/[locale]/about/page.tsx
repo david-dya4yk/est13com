@@ -3,21 +3,21 @@ import { setStaticParamsLocale } from "next-international/server";
 import { getCurrentLocale, getScopedI18n } from "@/locales/server";
 import PageHero from "@/components/PageHero";
 import s from "@/components/about/About.module.scss";
-import TestimonialsSlider from "@/components/about/TestimonialsSlider";
+import Testimonials from "@/components/home/Testimonials";
 import AboutFaq from "@/components/about/AboutFaq";
 import CountUp from "@/components/home/CountUp";
 
 type TFn = (key: string) => string;
 
-const LOGO_CHIPS = [
-  "NORTHWIND",
-  "VOLT",
-  "MERIDIAN",
-  "KASTA",
-  "OBSIDIAN",
-  "LUMEN",
-  "APEX",
-  "FORMA",
+const LOGO_CHIPS: { name: string; img?: string }[] = [
+  { name: "Fast Sauna", img: "/assets/cases/fastsauna-logo.png" },
+  { name: "Alexa Bodnar", img: "/assets/cases/photographer-logo.svg" },
+  { name: "Modo Floors", img: "/assets/cases/modofloors-logo.svg" },
+  { name: "NORTHWIND" },
+  { name: "VOLT" },
+  { name: "MERIDIAN" },
+  { name: "LUMEN" },
+  { name: "FORMA" },
 ];
 
 export default async function AboutPage({
@@ -130,33 +130,34 @@ export default async function AboutPage({
         </div>
         <div className="marquee">
           <div className="marquee-row">
-            {[...LOGO_CHIPS, ...LOGO_CHIPS].map((name, i) => (
-              <span key={`${name}-${i}`} className={s.logoChip}>
-                {name}
-              </span>
-            ))}
+            {[...LOGO_CHIPS, ...LOGO_CHIPS].map((c, i) =>
+              c.img ? (
+                <span key={`${c.name}-${i}`} className={s.logoChipImg}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={c.img} alt={c.name} />
+                </span>
+              ) : (
+                <span key={`${c.name}-${i}`} className={s.logoChip}>
+                  {c.name}
+                </span>
+              )
+            )}
           </div>
         </div>
-        <p
-          className="form-note"
-          style={{ textAlign: "center", marginTop: 28 }}
-        >
-          {ab("logos.note")}
-        </p>
       </section>
 
       {/* REVIEWS */}
       <section className="section" style={{ background: "var(--bg-2)" }}>
-        <div className="wrap">
+        <div
+          className="wrap"
+          style={{ marginBottom: "clamp(36px, 5vw, 56px)" }}
+        >
           <span className="kicker">{ab("rev.kicker")}</span>
-          <h2
-            className="h-sec"
-            style={{ margin: "18px 0 clamp(40px, 5vw, 64px)" }}
-          >
+          <h2 className="h-sec" style={{ marginTop: 18 }}>
             {ab("rev.title")}
           </h2>
-          <TestimonialsSlider />
         </div>
+        <Testimonials />
       </section>
 
       {/* FAQ */}

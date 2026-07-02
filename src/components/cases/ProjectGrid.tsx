@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useI18n, useCurrentLocale } from "@/locales/client";
 import s from "./Cases.module.scss";
 
@@ -15,14 +16,18 @@ type Project = {
   wide?: boolean;
   play?: boolean;
   ph: string;
+  img?: string;
+  imgPos?: string;
+  logo?: string;
+  href?: string;
 };
 
 const PROJECTS: Project[] = [
   { key: "p1", cats: ["web", "brand"], tags: ["web", "brand", "design"], year: "2026", wide: true, play: true, ph: "showreel · video 2100×900" },
-  { key: "p2", cats: ["web"], tags: ["web"], year: "2025", ph: "project · 1600×1000" },
-  { key: "p3", cats: ["bot", "ai"], tags: ["bot", "ai"], year: "2025", play: true, ph: "video · 1600×1000" },
+  { key: "p2", cats: ["web"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/fastsauna.jpg", logo: "/assets/cases/fastsauna-logo.png", href: "https://fastsauna.pl/" },
+  { key: "p3", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/photographer.jpg", imgPos: "center 22%", logo: "/assets/cases/photographer-logo.svg", href: "https://demo.est13.com/" },
   { key: "p4", cats: ["ai"], tags: ["ai"], year: "2025", ph: "project · 1600×1000" },
-  { key: "p5", cats: ["brand"], tags: ["brand", "design"], year: "2024", ph: "project · 1600×1000" },
+  { key: "p5", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/modofloors.jpg", logo: "/assets/cases/modofloors-logo.svg", href: "https://modofloors.com/" },
   { key: "p6", cats: ["web", "bot"], tags: ["web", "bot"], year: "2024", play: true, ph: "video · 1600×1000" },
 ];
 
@@ -57,15 +62,37 @@ export default function ProjectGrid() {
         {visible.map((p) => (
           <Link
             key={p.key}
-            href={`${base}/contacts`}
+            href={p.href ?? `${base}/contacts`}
+            target={p.href ? "_blank" : undefined}
+            rel={p.href ? "noopener noreferrer" : undefined}
             className={`${s.proj}${p.wide ? ` ${s.wide}` : ""}`}
           >
-            <div
-              className={`${s.media} ph${p.play ? " ph--play" : ""}`}
-              data-ph={p.ph}
-            >
-              <span className={`tag ${s.yr}`}>{p.year}</span>
-            </div>
+            {p.img ? (
+              <div className={s.media}>
+                <Image
+                  src={p.img}
+                  alt={t(`cs.${p.key}.t`)}
+                  fill
+                  sizes="(max-width: 820px) 100vw, 50vw"
+                  className={s.mediaImg}
+                  style={p.imgPos ? { objectPosition: p.imgPos } : undefined}
+                />
+                {p.logo ? (
+                  <span className={s.logoBadge}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={p.logo} alt="" />
+                  </span>
+                ) : null}
+                <span className={`tag ${s.yr}`}>{p.year}</span>
+              </div>
+            ) : (
+              <div
+                className={`${s.media} ph${p.play ? " ph--play" : ""}`}
+                data-ph={p.ph}
+              >
+                <span className={`tag ${s.yr}`}>{p.year}</span>
+              </div>
+            )}
             <div className={s.body}>
               <div className={s.tags}>
                 {p.tags.map((tag) => (

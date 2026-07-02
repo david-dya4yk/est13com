@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -27,6 +27,23 @@ export default function HeaderShell() {
   const [mobileSubOpen, setMobileSubOpen] = useState(false);
 
   const pathname = usePathname();
+
+  // Close the services dropdown with a small delay so the cursor can travel
+  // across the gap between the trigger and the panel without it snapping shut.
+  const ddCloseTimer = useRef<number | undefined>(undefined);
+  const openDd = () => {
+    if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    setDdOpen(true);
+  };
+  const closeDd = () => {
+    if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    ddCloseTimer.current = window.setTimeout(() => setDdOpen(false), 220);
+  };
+  useEffect(() => {
+    return () => {
+      if (ddCloseTimer.current) window.clearTimeout(ddCloseTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -65,8 +82,8 @@ export default function HeaderShell() {
           <nav className={s.nav}>
             <div
               className={`${s.navItem} ${ddOpen ? s.open : ""}`}
-              onMouseEnter={() => setDdOpen(true)}
-              onMouseLeave={() => setDdOpen(false)}
+              onMouseEnter={openDd}
+              onMouseLeave={closeDd}
             >
               <Link
                 href={servicesHref}
