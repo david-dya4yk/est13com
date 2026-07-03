@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { setStaticParamsLocale } from "next-international/server";
 import { getI18n, getCurrentLocale, getScopedI18n } from "@/locales/server";
 import s from "@/components/home/Home.module.scss";
@@ -17,9 +18,31 @@ const SERVICES = ["web", "bot", "ai", "brand"] as const;
 const FEATURES = ["f1", "f2", "f3", "f4", "f5", "f6"] as const;
 const FLOW = ["s1", "s2", "s3", "s4", "s5"] as const;
 const CASES = [
-  { key: "c1", tags: ["web", "brand"] as const, play: false },
-  { key: "c2", tags: ["bot", "ai"] as const, play: true },
-  { key: "c3", tags: ["web", "ai"] as const, play: false },
+  {
+    key: "c1",
+    tags: ["web", "brand"],
+    year: "2026",
+    img: "/assets/cases/miltonroma.jpg",
+    logo: "/assets/cases/miltonroma-logo.png",
+    href: "https://www.miltonroma.com/en/",
+  },
+  {
+    key: "c2",
+    tags: ["web"],
+    year: "2026",
+    img: "/assets/cases/fastsauna.jpg",
+    logo: "/assets/cases/fastsauna-logo.png",
+    href: "https://fastsauna.pl/",
+  },
+  {
+    key: "c3",
+    tags: ["web", "brand"],
+    year: "2026",
+    img: "/assets/cases/photographer.jpg",
+    imgPos: "center 22%",
+    logo: "/assets/cases/photographer-logo.svg",
+    href: "https://demo.est13.com/",
+  },
 ] as const;
 
 type TFn = (key: string) => string;
@@ -70,7 +93,7 @@ export default async function HomePage({
         <div className={s.heroStats}>
           <div className={s.hstat}>
             <div className={s.n}>
-              <CountUp to={120} suffix="+" />
+              <CountUp to={40} suffix="+" />
             </div>
             <div className={s.l}>{home("stat.projects")}</div>
           </div>
@@ -82,9 +105,15 @@ export default async function HomePage({
           </div>
           <div className={s.hstat}>
             <div className={s.n}>
-              <CountUp to={8} />
+              <CountUp to={5} />
             </div>
             <div className={s.l}>{home("stat.years")}</div>
+          </div>
+          <div className={s.hstat}>
+            <div className={s.n}>
+              <CountUp to={30} suffix="+" />
+            </div>
+            <div className={s.l}>{home("stat.clients")}</div>
           </div>
         </div>
       </section>
@@ -136,10 +165,29 @@ export default async function HomePage({
           <div className={s.caseList}>
             {CASES.map((c) => (
               <article key={c.key} className={s.case}>
-                <div
-                  className={`${s.caseMedia} ph${c.play ? " ph--play" : ""}`}
-                  data-ph="project shot · 1600×1200"
-                />
+                <Link
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.caseMedia}
+                >
+                  <Image
+                    src={c.img}
+                    alt={home(`cases.${c.key}.t`)}
+                    fill
+                    sizes="(max-width: 820px) 100vw, 55vw"
+                    className={s.mediaImg}
+                    style={
+                      "imgPos" in c
+                        ? { objectPosition: c.imgPos }
+                        : undefined
+                    }
+                  />
+                  <span className={s.logoBadge}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={c.logo} alt="" />
+                  </span>
+                </Link>
                 <div className={s.caseBody}>
                   <div className={s.caseTags}>
                     {c.tags.map((tag) => (
@@ -151,13 +199,16 @@ export default async function HomePage({
                   <h3>{home(`cases.${c.key}.t`)}</h3>
                   <p>{home(`cases.${c.key}.d`)}</p>
                   <div className={s.caseFoot}>
-                    <Link href={`${base}/cases`} className={s.caseLink}>
+                    <Link
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={s.caseLink}
+                    >
                       <span>{t("cta.more")}</span>
                       <ArrowRight />
                     </Link>
-                    <span className={s.caseYr}>
-                      {home(`cases.${c.key}.year`)}
-                    </span>
+                    <span className={s.caseYr}>{c.year}</span>
                   </div>
                 </div>
               </article>

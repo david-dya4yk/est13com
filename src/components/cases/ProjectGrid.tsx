@@ -23,7 +23,7 @@ type Project = {
 };
 
 const PROJECTS: Project[] = [
-  { key: "p1", cats: ["web", "brand"], tags: ["web", "brand", "design"], year: "2026", wide: true, play: true, ph: "showreel · video 2100×900" },
+  { key: "p1", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", wide: true, ph: "project · 2100×900", img: "/assets/cases/miltonroma.jpg", logo: "/assets/cases/miltonroma-logo.png", href: "https://www.miltonroma.com/en/" },
   { key: "p2", cats: ["web"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/fastsauna.jpg", logo: "/assets/cases/fastsauna-logo.png", href: "https://fastsauna.pl/" },
   { key: "p3", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/photographer.jpg", imgPos: "center 22%", logo: "/assets/cases/photographer-logo.svg", href: "https://demo.est13.com/" },
   { key: "p4", cats: ["ai"], tags: ["ai"], year: "2025", ph: "project · 1600×1000" },
