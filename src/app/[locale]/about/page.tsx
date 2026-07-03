@@ -69,7 +69,7 @@ export default async function AboutPage({
           <div className={s.stats}>
             <div className={s.statCell}>
               <div className={s.n}>
-                <CountUp to={120} suffix="+" />
+                <CountUp to={40} suffix="+" />
               </div>
               <div className={s.l}>{ab("stat.s1")}</div>
             </div>
@@ -81,13 +81,13 @@ export default async function AboutPage({
             </div>
             <div className={s.statCell}>
               <div className={s.n}>
-                <CountUp to={8} />
+                <CountUp to={5} />
               </div>
               <div className={s.l}>{ab("stat.s3")}</div>
             </div>
             <div className={s.statCell}>
               <div className={s.n}>
-                <CountUp to={60} suffix="+" />
+                <CountUp to={30} suffix="+" />
               </div>
               <div className={s.l}>{ab("stat.s4")}</div>
             </div>

@@ -36,7 +36,8 @@ export default {
     stat: {
       projects: "projects shipped",
       niches: "niches & industries",
-      years: "years on the market",
+      years: "years of experience",
+      clients: "happy clients",
     },
     svc: {
       web: "Landings, corporate sites and e-commerce that sell.",
@@ -46,9 +47,21 @@ export default {
     },
     cases: {
       title: "Selected work",
-      c1: { t: "", d: "", year: "2026" },
-      c2: { t: "", d: "", year: "2025" },
-      c3: { t: "", d: "", year: "2025" },
+      c1: {
+        t: "Hotel Milton Roma — 4★ hotel in Rome",
+        d: "Website for a four-star hotel in Rome's historic centre, 10 minutes from the Colosseum. Showcasing rooms, atmosphere and direct booking.",
+        year: "2026",
+      },
+      c2: {
+        t: "Fast Sauna — private sauna in Krakow",
+        d: "Landing page for a private Finnish sauna and hot tub near Krakow. Online booking with guaranteed privacy, up to 12 guests and add-ons.",
+        year: "2026",
+      },
+      c3: {
+        t: "Alexa Bodnar — photographer's website",
+        d: "Portfolio website for a Minnesota wedding & lifestyle photographer. A cinematic gallery, brand story and online booking for sessions.",
+        year: "2026",
+      },
     },
     tag: {
       web: "Website",
@@ -242,7 +255,7 @@ export default {
       lede: "A selection of projects across niches — from websites and bots to AI solutions and branding. Each one started with a real business challenge.",
     },
     f: { all: "All", web: "Sites", bot: "Bots", ai: "AI", brand: "Branding" },
-    p1: { t: "", d: "" },
+    p1: { t: "Hotel Milton Roma — 4★ hotel in Rome", d: "Website for a four-star hotel in Rome's historic centre, 10 minutes from the Colosseum. Showcasing rooms, atmosphere and direct booking." },
     p2: { t: "Fast Sauna — private sauna in Krakow", d: "Landing page for a private Finnish sauna and hot tub near Krakow. Online booking with guaranteed privacy, up to 12 guests, and easy selection of hours and add-ons." },
     p3: { t: "Alexa Bodnar — photographer's website", d: "Portfolio website for a Minnesota wedding & lifestyle photographer. A cinematic gallery of work, brand story and online booking for sessions." },
     p4: { t: "", d: "" },

@@ -59,9 +59,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  text-align: center;
+  text-align: left;
 }
 .hero h1 {
   margin: 0;
@@ -113,7 +113,7 @@
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 40px;
 }
 .heroStats {
@@ -322,8 +322,41 @@
   }
 }
 .caseMedia {
+  position: relative;
+  display: block;
   aspect-ratio: 4/3;
   min-height: 300px;
+  overflow: hidden;
+}
+.mediaImg {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+.case:hover .mediaImg {
+  transform: scale(1.04);
+}
+.logoBadge {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+  }
 }
 .caseBody {
   padding: clamp(28px, 3vw, 52px) clamp(28px, 3vw, 52px) clamp(28px, 3vw, 52px) 0;
