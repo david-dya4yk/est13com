@@ -6,6 +6,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import SvgDefs from "@/components/SvgDefs";
 import PageTransition from "@/components/PageTransition";
+import { Analytics } from "@vercel/analytics/next";
 
 export function generateStaticParams() {
   return getStaticParams();
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
             <Footer />
           </PageTransition>
         </I18nProviderClient>
+        <Analytics />
       </body>
     </html>
   );
