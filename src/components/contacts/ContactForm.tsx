@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useI18n } from "@/locales/client";
+import { useLeadForm } from "@/hooks/useLeadForm";
 
 export default function ContactForm() {
   const t = useI18n();
-  const [sent, setSent] = useState(false);
+  const { status, submit } = useLeadForm();
   const [errors, setErrors] = useState<{
     name?: string;
     phone?: string;
@@ -13,7 +14,7 @@ export default function ContactForm() {
     desc?: string;
   }>({});
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const name = String(fd.get("name") || "").trim();
@@ -26,10 +27,12 @@ export default function ContactForm() {
     if (!/^\S+@\S+\.\S+$/.test(email)) next.email = t("form.errEmail");
     if (!desc) next.desc = t("form.errReq");
     setErrors(next);
-    if (Object.keys(next).length === 0) setSent(true);
+    if (Object.keys(next).length > 0) return;
+
+    await submit({ kind: "contact", name, phone, email, desc });
   };
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <div className="form-ok show">
         <strong style={{ fontSize: 20 }}>{t("form.okT")}</strong>
@@ -37,6 +40,8 @@ export default function ContactForm() {
       </div>
     );
   }
+
+  const sending = status === "sending";
 
   return (
     <form className="form" onSubmit={onSubmit} noValidate>
@@ -84,8 +89,19 @@ export default function ContactForm() {
         />
         <span className="err">{errors.desc}</span>
       </div>
-      <button className="btn btn--primary btn--lg btn--block" type="submit">
-        <span>{t("form.send")}</span>
+      {status === "error" && (
+        <p className="form-err" role="alert">
+          <strong>{t("form.errSendT")}</strong>{" "}
+          {t("form.errSendD")}{" "}
+          <a href="mailto:est13com@gmail.com">est13com@gmail.com</a>
+        </p>
+      )}
+      <button
+        className="btn btn--primary btn--lg btn--block"
+        type="submit"
+        disabled={sending}
+      >
+        <span>{sending ? t("form.sending") : t("form.send")}</span>
         <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>

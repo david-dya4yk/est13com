@@ -165,6 +165,9 @@ export default {
     errPhone: "Check the number",
     okT: "Thank you!",
     okD: "We’ve received your request and will get back within 24 hours.",
+    sending: "Sending…",
+    errSendT: "Could not send",
+    errSendD: "Please try again or email us at",
   },
   srv: {
     kicker: "Services",

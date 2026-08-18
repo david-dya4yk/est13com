@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { useI18n } from "@/locales/client";
+import { useLeadForm } from "@/hooks/useLeadForm";
 
 export default function ServiceForm() {
   const t = useI18n();
-  const [sent, setSent] = useState(false);
+  const { status, submit } = useLeadForm();
   const [errors, setErrors] = useState<{ name?: string; email?: string; msg?: string }>({});
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const service = String(fd.get("service") || "web");
     const name = String(fd.get("name") || "").trim();
     const email = String(fd.get("email") || "").trim();
     const msg = String(fd.get("msg") || "").trim();
@@ -19,10 +21,12 @@ export default function ServiceForm() {
     if (!/^\S+@\S+\.\S+$/.test(email)) next.email = t("form.errEmail");
     if (!msg) next.msg = t("form.errReq");
     setErrors(next);
-    if (Object.keys(next).length === 0) setSent(true);
+    if (Object.keys(next).length > 0) return;
+
+    await submit({ kind: "service", service, name, email, msg });
   };
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <div className="form-ok show">
         <strong>{t("form.okT")}</strong>
@@ -30,6 +34,8 @@ export default function ServiceForm() {
       </div>
     );
   }
+
+  const sending = status === "sending";
 
   return (
     <form className="form" onSubmit={onSubmit} noValidate>
@@ -66,8 +72,19 @@ export default function ServiceForm() {
         <textarea className="textarea" name="msg" placeholder={t("form.msgPh")} />
         <span className="err">{errors.msg}</span>
       </div>
-      <button className="btn btn--primary btn--lg btn--block" type="submit">
-        <span>{t("form.submit")}</span>
+      {status === "error" && (
+        <p className="form-err" role="alert">
+          <strong>{t("form.errSendT")}</strong>{" "}
+          {t("form.errSendD")}{" "}
+          <a href="mailto:est13com@gmail.com">est13com@gmail.com</a>
+        </p>
+      )}
+      <button
+        className="btn btn--primary btn--lg btn--block"
+        type="submit"
+        disabled={sending}
+      >
+        <span>{sending ? t("form.sending") : t("form.submit")}</span>
       </button>
       <p className="form-note">{t("form.privacy")}</p>
     </form>
