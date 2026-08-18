@@ -55,7 +55,7 @@ export default async function ContactsPage({
                 {ct("ch.title")}
               </span>
               <div style={{ marginTop: 14 }} />
-              <a className={s.chan} href="mailto:hello@est13.studio">
+              <a className={s.chan} href="mailto:est13com@gmail.com">
                 <span className={s.ico}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6}>
                     <rect x={3} y={5} width={18} height={14} rx={2} />
@@ -64,7 +64,7 @@ export default async function ContactsPage({
                 </span>
                 <span>
                   <span className={s.k}>Email</span>
-                  <span className={s.v}>hello@est13.studio</span>
+                  <span className={s.v}>est13com@gmail.com</span>
                 </span>
                 <span className={s.arrow}>
                   <ArrowOut />
@@ -72,7 +72,7 @@ export default async function ContactsPage({
               </a>
               <a
                 className={s.chan}
-                href="https://t.me/"
+                href="https://t.me/est13studio"
                 target="_blank"
                 rel="noopener"
               >

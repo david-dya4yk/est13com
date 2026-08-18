@@ -38,7 +38,7 @@ export default async function Footer() {
             </Link>
             <p className={s.blurb}>{t("foot.tag")}</p>
             <div className={s.socials}>
-              <a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram">
+              <a href="https://t.me/est13studio" target="_blank" rel="noopener" aria-label="Telegram">
                 <IconTg />
               </a>
               <a
@@ -49,7 +49,7 @@ export default async function Footer() {
               >
                 <IconIg />
               </a>
-              <a href="mailto:hello@est13.studio" aria-label="Email">
+              <a href="mailto:est13com@gmail.com" aria-label="Email">
                 <IconMail />
               </a>
             </div>
@@ -73,8 +73,8 @@ export default async function Footer() {
 
           <div className={s.col}>
             <h4>{t("foot.contact")}</h4>
-            <a href="mailto:hello@est13.studio">hello@est13.studio</a>
-            <a href="https://t.me/" target="_blank" rel="noopener">
+            <a href="mailto:est13com@gmail.com">est13com@gmail.com</a>
+            <a href="https://t.me/est13studio" target="_blank" rel="noopener">
               @est13studio
             </a>
             <Link href={`${base}/contacts`}>{t("cta.book")}</Link>
