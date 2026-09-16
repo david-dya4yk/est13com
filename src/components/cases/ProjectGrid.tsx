@@ -28,13 +28,14 @@ const PROJECTS: Project[] = [
   { key: "p1", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", wide: true, ph: "project · 2100×900", img: "/assets/cases/miltonroma.jpg", logo: "/assets/cases/miltonroma-logo.png", href: "https://www.miltonroma.com/en/" },
   { key: "p2", cats: ["web"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/fastsauna.jpg", logo: "/assets/cases/fastsauna-logo.png", href: "https://fastsauna.pl/" },
   { key: "p3", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/photographer.jpg", imgPos: "center 22%", logo: "/assets/cases/photographer-logo.svg", href: "https://demo.est13.com/" },
-  { key: "p4", cats: ["ai"], tags: ["ai"], year: "2025", ph: "project · 1600×1000" },
   { key: "p5", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/modofloors.jpg", logo: "/assets/cases/modofloors-logo.svg", href: "https://modofloors.com/" },
-  { key: "p6", cats: ["web", "bot"], tags: ["web", "bot"], year: "2024", play: true, ph: "video · 1600×1000" },
   { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: [1, 2, 3, 4, 5, 6].map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
 ];
 
-const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
+// Only show filters that have at least one project
+const FILTERS = (["all", "web", "bot", "ai", "brand"] as const).filter(
+  (f) => f === "all" || PROJECTS.some((p) => p.cats.includes(f))
+);
 
 export default function ProjectGrid() {
   const t = useI18n() as (k: string) => string;
