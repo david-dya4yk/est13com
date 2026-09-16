@@ -269,6 +269,8 @@ export default {
     p4: { t: "", d: "" },
     p5: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring sales, installation and turnkey remodeling company. Service catalog, project showcase and a free on-site estimate request." },
     p6: { t: "", d: "" },
+    p7: { t: "HARD&SMART — CrossFit club branding", d: "Brand identity for a CrossFit training club: an H and S monogram built from two dumbbells, an “&” sign in the L-sit pose, a colour palette and a brandbook." },
+    gallery: { open: "View project", prev: "Previous", next: "Next", close: "Close" },
     note: "",
     cta: { t: "Want a result like this?", d: "Tell us about your task — and your project will be next on this list." },
   },

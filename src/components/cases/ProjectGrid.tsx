@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useI18n, useCurrentLocale } from "@/locales/client";
+import CaseGallery from "./CaseGallery";
 import s from "./Cases.module.scss";
 
 type Filter = "all" | "web" | "bot" | "ai" | "brand";
@@ -20,6 +21,7 @@ type Project = {
   imgPos?: string;
   logo?: string;
   href?: string;
+  gallery?: string[];
 };
 
 const PROJECTS: Project[] = [
@@ -29,6 +31,7 @@ const PROJECTS: Project[] = [
   { key: "p4", cats: ["ai"], tags: ["ai"], year: "2025", ph: "project · 1600×1000" },
   { key: "p5", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/modofloors.jpg", logo: "/assets/cases/modofloors-logo.svg", href: "https://modofloors.com/" },
   { key: "p6", cats: ["web", "bot"], tags: ["web", "bot"], year: "2024", play: true, ph: "video · 1600×1000" },
+  { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: [1, 2, 3, 4, 5, 6].map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
 ];
 
 const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
@@ -38,6 +41,7 @@ export default function ProjectGrid() {
   const locale = useCurrentLocale();
   const base = `/${locale}`;
   const [filter, setFilter] = useState<Filter>("all");
+  const [opened, setOpened] = useState<Project | null>(null);
 
   const visible = PROJECTS.filter(
     (p) => filter === "all" || p.cats.includes(filter as Exclude<Filter, "all">)
@@ -59,60 +63,91 @@ export default function ProjectGrid() {
       </div>
 
       <div className={s.grid}>
-        {visible.map((p) => (
-          <Link
-            key={p.key}
-            href={p.href ?? `${base}/contacts`}
-            target={p.href ? "_blank" : undefined}
-            rel={p.href ? "noopener noreferrer" : undefined}
-            className={`${s.proj}${p.wide ? ` ${s.wide}` : ""}`}
-          >
-            {p.img ? (
-              <div className={s.media}>
-                <Image
-                  src={p.img}
-                  alt={t(`cs.${p.key}.t`)}
-                  fill
-                  sizes="(max-width: 820px) 100vw, 50vw"
-                  className={s.mediaImg}
-                  style={p.imgPos ? { objectPosition: p.imgPos } : undefined}
-                />
-                {p.logo ? (
-                  <span className={s.logoBadge}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.logo} alt="" />
-                  </span>
-                ) : null}
-                <span className={`tag ${s.yr}`}>{p.year}</span>
+        {visible.map((p) => {
+          const className = `${s.proj}${p.wide ? ` ${s.wide}` : ""}`;
+          const content = (
+            <>
+              {p.img ? (
+                <div className={s.media}>
+                  <Image
+                    src={p.img}
+                    alt={t(`cs.${p.key}.t`)}
+                    fill
+                    sizes="(max-width: 820px) 100vw, 50vw"
+                    className={s.mediaImg}
+                    style={p.imgPos ? { objectPosition: p.imgPos } : undefined}
+                  />
+                  {p.logo ? (
+                    <span className={s.logoBadge}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.logo} alt="" />
+                    </span>
+                  ) : null}
+                  <span className={`tag ${s.yr}`}>{p.year}</span>
+                </div>
+              ) : (
+                <div
+                  className={`${s.media} ph${p.play ? " ph--play" : ""}`}
+                  data-ph={p.ph}
+                >
+                  <span className={`tag ${s.yr}`}>{p.year}</span>
+                </div>
+              )}
+              <div className={s.body}>
+                <div className={s.tags}>
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="tag">
+                      {t(`tag.${tag}`)}
+                    </span>
+                  ))}
+                </div>
+                <h2>{t(`cs.${p.key}.t`)}</h2>
+                <p>{t(`cs.${p.key}.d`)}</p>
+                <span className={s.open}>
+                  <span>{t(p.gallery ? "cs.gallery.open" : "cta.more")}</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                    <path d="M7 17L17 7M9 7h8v8" />
+                  </svg>
+                </span>
               </div>
-            ) : (
-              <div
-                className={`${s.media} ph${p.play ? " ph--play" : ""}`}
-                data-ph={p.ph}
-              >
-                <span className={`tag ${s.yr}`}>{p.year}</span>
-              </div>
-            )}
-            <div className={s.body}>
-              <div className={s.tags}>
-                {p.tags.map((tag) => (
-                  <span key={tag} className="tag">
-                    {t(`tag.${tag}`)}
-                  </span>
-                ))}
-              </div>
-              <h2>{t(`cs.${p.key}.t`)}</h2>
-              <p>{t(`cs.${p.key}.d`)}</p>
-              <span className={s.open}>
-                <span>{t("cta.more")}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-                  <path d="M7 17L17 7M9 7h8v8" />
-                </svg>
-              </span>
-            </div>
-          </Link>
-        ))}
+            </>
+          );
+
+          return p.gallery ? (
+            <button
+              key={p.key}
+              type="button"
+              className={className}
+              onClick={() => setOpened(p)}
+            >
+              {content}
+            </button>
+          ) : (
+            <Link
+              key={p.key}
+              href={p.href ?? `${base}/contacts`}
+              target={p.href ? "_blank" : undefined}
+              rel={p.href ? "noopener noreferrer" : undefined}
+              className={className}
+            >
+              {content}
+            </Link>
+          );
+        })}
       </div>
+
+      {opened?.gallery ? (
+        <CaseGallery
+          images={opened.gallery}
+          title={t(`cs.${opened.key}.t`)}
+          labels={{
+            prev: t("cs.gallery.prev"),
+            next: t("cs.gallery.next"),
+            close: t("cs.gallery.close"),
+          }}
+          onClose={() => setOpened(null)}
+        />
+      ) : null}
     </>
   );
 }
