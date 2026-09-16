@@ -43,6 +43,14 @@ const CASES = [
     logo: "/assets/cases/photographer-logo.svg",
     href: "https://demo.est13.com/",
   },
+  {
+    key: "c4",
+    tags: ["web", "brand"],
+    year: "2026",
+    img: "/assets/cases/modofloors.jpg",
+    logo: "/assets/cases/modofloors-logo.svg",
+    href: "https://modofloors.com/",
+  },
 ] as const;
 
 type TFn = (key: string) => string;
