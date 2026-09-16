@@ -200,6 +200,7 @@ export default {
       d3: "Payments & CRM",
       d4: "Routine automation",
       c1: { t: "EST 13 — Telegram bot & lead CRM", d: "The bot and Mini App collect a project brief and show clients their request status; leads go to an admin panel with a dashboard and history.", r: "bot + admin panel" },
+      c2: { t: "Lotus Project — pool & restaurant bot", d: "A Telegram bot for Lotus and Black Lotus: event listings, photo reports, the menu and step-by-step booth booking — date, time, party size and contacts.", r: "booking in Telegram" },
     },
     ai: {
       bignum: "03 — AI",
@@ -269,6 +270,7 @@ export default {
     p5: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring sales, installation and turnkey remodeling company. Service catalog, project showcase and a free on-site estimate request." },
     p7: { t: "HARD&SMART — CrossFit club branding", d: "Brand identity for a CrossFit training club: an H and S monogram built from two dumbbells, an “&” sign in the L-sit pose, a colour palette and a brandbook." },
     p6: { t: "EST 13 — Telegram bot & lead CRM", d: "A Telegram bot with a Mini App collects a project brief step by step and lets clients track their requests. Leads land in an admin panel with statuses, a dashboard, chats, broadcasts and editable bot texts." },
+    p8: { t: "Lotus Project — Telegram bot for a pool & restaurant", d: "A bot for Lotus pool and the Black Lotus restaurant & karaoke: tonight's events, party photo reports, the menu and booth booking — a date calendar, time slots, party size and a contact for confirmation." },
     gallery: { open: "View project", watch: "Watch video", prev: "Previous", next: "Next", close: "Close" },
     note: "",
     cta: { t: "Want a result like this?", d: "Tell us about your task — and your project will be next on this list." },
@@ -344,7 +346,7 @@ export default {
     },
     cases: {
       title: "Cases & Portfolio",
-      description: "EST 13 portfolio: websites for a hotel in Rome, a sauna in Kraków, a US photographer and Modo Floors, a Telegram bot and HARD&SMART branding.",
+      description: "EST 13 portfolio: websites for a hotel in Rome, a sauna in Kraków, a US photographer and Modo Floors, Telegram bots and HARD&SMART branding.",
     },
     about: {
       title: "About the Studio",
