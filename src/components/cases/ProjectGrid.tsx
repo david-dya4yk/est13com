@@ -32,10 +32,7 @@ const PROJECTS: Project[] = [
   { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: [1, 2, 3, 4, 5, 6].map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
 ];
 
-// Only show filters that have at least one project
-const FILTERS = (["all", "web", "bot", "ai", "brand"] as const).filter(
-  (f) => f === "all" || PROJECTS.some((p) => p.cats.includes(f))
-);
+const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
 
 export default function ProjectGrid() {
   const t = useI18n() as (k: string) => string;
