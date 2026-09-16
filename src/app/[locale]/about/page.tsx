@@ -6,6 +6,8 @@ import s from "@/components/about/About.module.scss";
 import Testimonials from "@/components/home/Testimonials";
 import AboutFaq from "@/components/about/AboutFaq";
 import CountUp from "@/components/home/CountUp";
+import type { Metadata } from "next";
+import { pageMetadata, dict, jsonLd, toLocale } from "@/lib/seo";
 
 type TFn = (key: string) => string;
 
@@ -20,6 +22,15 @@ const LOGO_CHIPS: { name: string; img?: string }[] = [
   { name: "FORMA" },
 ];
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "about");
+}
+
 export default async function AboutPage({
   params,
 }: {
@@ -30,6 +41,17 @@ export default async function AboutPage({
 
   const ab = (await getScopedI18n("ab")) as TFn;
   await getCurrentLocale();
+
+  const faq = dict(toLocale(paramLocale)).ab.faq;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ([1, 2, 3, 4] as const).map((i) => ({
+      "@type": "Question",
+      name: faq[`q${i}`],
+      acceptedAnswer: { "@type": "Answer", text: faq[`a${i}`] },
+    })),
+  };
 
   return (
     <>
@@ -162,6 +184,7 @@ export default async function AboutPage({
 
       {/* FAQ */}
       <section className="section" id="faq">
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
         <div className="wrap" style={{ maxWidth: 1000 }}>
           <span className="kicker">{ab("faq.kicker")}</span>
           <h2

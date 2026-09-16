@@ -5,6 +5,8 @@ import PageHero from "@/components/PageHero";
 import s from "@/components/services/Services.module.scss";
 import MiniSlider, { type Slide } from "@/components/services/MiniSlider";
 import ServiceForm from "@/components/services/ServiceForm";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 type TFn = (key: string) => string;
 
@@ -41,6 +43,15 @@ const SLIDES: Record<SvcKey, SlideDef[]> = {
     c: 1,
   })),
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "services");
+}
 
 export default async function ServicesPage({
   params,

@@ -3,6 +3,8 @@ import { getScopedI18n } from "@/locales/server";
 import PageHero from "@/components/PageHero";
 import s from "@/components/contacts/Contacts.module.scss";
 import ContactForm from "@/components/contacts/ContactForm";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 type TFn = (key: string) => string;
 
@@ -11,6 +13,15 @@ const ArrowOut = () => (
     <path d="M7 17L17 7M9 7h8v8" />
   </svg>
 );
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "contacts");
+}
 
 export default async function ContactsPage({
   params,
