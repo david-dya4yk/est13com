@@ -13,7 +13,13 @@ type SvcKey = (typeof SERVICES)[number];
 
 // `c` = text key srv.<id>.c<c>; defaults to the slide number, set it to
 // reuse one case text across several photos.
-type SlideDef = { img?: string; imgPos?: string; play?: boolean; c?: number };
+type SlideDef = {
+  img?: string;
+  imgPos?: string;
+  video?: string;
+  play?: boolean;
+  c?: number;
+};
 
 // One entry per slide
 const SLIDES: Record<SvcKey, SlideDef[]> = {
@@ -23,7 +29,12 @@ const SLIDES: Record<SvcKey, SlideDef[]> = {
     { img: "/assets/cases/photographer.jpg", imgPos: "center 22%" },
     { img: "/assets/cases/modofloors.jpg" },
   ],
-  bot: [{ play: true }, {}],
+  bot: [
+    {
+      img: "/assets/cases/est13-bot/poster.jpg",
+      video: "/assets/cases/est13-bot/demo.mp4",
+    },
+  ],
   ai: [{}, {}],
   brand: Array.from({ length: 11 }, (_, i) => ({
     img: `/assets/cases/hardsmart/${i + 1}.jpg`,

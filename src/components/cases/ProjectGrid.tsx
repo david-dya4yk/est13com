@@ -12,7 +12,7 @@ type Filter = "all" | "web" | "bot" | "ai" | "brand";
 type Project = {
   key: string;
   cats: Exclude<Filter, "all">[];
-  tags: ("web" | "brand" | "bot" | "ai" | "design")[];
+  tags: ("web" | "brand" | "bot" | "ai" | "design" | "dev")[];
   year: string;
   wide?: boolean;
   play?: boolean;
@@ -22,6 +22,7 @@ type Project = {
   logo?: string;
   href?: string;
   gallery?: string[];
+  video?: string;
 };
 
 const PROJECTS: Project[] = [
@@ -30,6 +31,7 @@ const PROJECTS: Project[] = [
   { key: "p3", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/photographer.jpg", imgPos: "center 22%", logo: "/assets/cases/photographer-logo.svg", href: "https://demo.est13.com/" },
   { key: "p5", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/modofloors.jpg", logo: "/assets/cases/modofloors-logo.svg", href: "https://modofloors.com/" },
   { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: Array.from({ length: 11 }, (_, i) => i + 1).map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
+  { key: "p6", cats: ["bot"], tags: ["bot", "dev"], year: "2026", wide: true, ph: "video · 1920×1080", img: "/assets/cases/est13-bot/poster.jpg", video: "/assets/cases/est13-bot/demo.mp4", logo: "/assets/est13_mark.png", gallery: ["/assets/cases/est13-bot/demo.mp4"] },
 ];
 
 const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
@@ -67,6 +69,19 @@ export default function ProjectGrid() {
             <>
               {p.img ? (
                 <div className={s.media}>
+                  {p.video ? (
+                    <video
+                      src={p.video}
+                      poster={p.img}
+                      className={s.mediaVideo}
+                      aria-label={t(`cs.${p.key}.t`)}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  ) : (
                   <Image
                     src={p.img}
                     alt={t(`cs.${p.key}.t`)}
@@ -75,6 +90,7 @@ export default function ProjectGrid() {
                     className={s.mediaImg}
                     style={p.imgPos ? { objectPosition: p.imgPos } : undefined}
                   />
+                  )}
                   {p.logo ? (
                     <span className={s.logoBadge}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -102,7 +118,7 @@ export default function ProjectGrid() {
                 <h2>{t(`cs.${p.key}.t`)}</h2>
                 <p>{t(`cs.${p.key}.d`)}</p>
                 <span className={s.open}>
-                  <span>{t(p.gallery ? "cs.gallery.open" : "cta.more")}</span>
+                  <span>{t(p.video ? "cs.gallery.watch" : p.gallery ? "cs.gallery.open" : "cta.more")}</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
                     <path d="M7 17L17 7M9 7h8v8" />
                   </svg>
