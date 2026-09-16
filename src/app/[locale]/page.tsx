@@ -13,6 +13,8 @@ import Testimonials from "@/components/home/Testimonials";
 import { ArrowRight, ArrowUpRight, FeatIcons } from "@/components/home/icons";
 import ukDict from "@/locales/uk";
 import enDict from "@/locales/en";
+import type { Metadata } from "next";
+import { pageMetadata, dict, jsonLd, toLocale } from "@/lib/seo";
 
 const SERVICES = ["web", "bot", "ai", "brand"] as const;
 const FEATURES = ["f1", "f2", "f3", "f4", "f5", "f6"] as const;
@@ -55,6 +57,15 @@ const CASES = [
 
 type TFn = (key: string) => string;
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "home");
+}
+
 export default async function HomePage({
   params,
 }: {
@@ -71,6 +82,17 @@ export default async function HomePage({
   const phrases = (
     locale === "en" ? enDict.home.typewriter : ukDict.home.typewriter
   ) as readonly string[];
+
+  const faq = dict(toLocale(locale)).home.faq;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ([1, 2, 3, 4] as const).map((i) => ({
+      "@type": "Question",
+      name: faq[`q${i}`],
+      acceptedAnswer: { "@type": "Answer", text: faq[`a${i}`] },
+    })),
+  };
 
   return (
     <>
@@ -291,6 +313,7 @@ export default async function HomePage({
 
       {/* FAQ */}
       <section className="section" id="faq">
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
         <div className="wrap" style={{ maxWidth: 1000 }}>
           <span className="kicker">05</span>
           <h2

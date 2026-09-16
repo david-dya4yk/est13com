@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import SvgDefs from "@/components/SvgDefs";
 import PageTransition from "@/components/PageTransition";
 import { Analytics } from "@vercel/analytics/next";
+import { CONTACT, SITE_NAME, SITE_URL, dict, jsonLd, toLocale } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getStaticParams();
@@ -24,9 +25,43 @@ export default async function LocaleLayout({
   const { locale } = await params;
   setStaticParamsLocale(locale);
 
+  const { description } = dict(toLocale(locale)).seo.home;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/assets/est13_mark.png`,
+        email: CONTACT.email,
+        slogan: "Code meets instinct",
+        description,
+        sameAs: [CONTACT.telegram],
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          email: CONTACT.email,
+          url: CONTACT.telegram,
+          availableLanguage: ["uk", "en"],
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        inLanguage: locale,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+    ],
+  };
+
   return (
     <html lang={locale} data-lang={locale}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
         <I18nProviderClient locale={locale}>
           <SvgDefs />
           <PageTransition>
