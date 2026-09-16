@@ -11,18 +11,24 @@ type TFn = (key: string) => string;
 const SERVICES = ["web", "bot", "ai", "brand"] as const;
 type SvcKey = (typeof SERVICES)[number];
 
-const SLIDE_BADGES: Record<SvcKey, [string, string]> = {
-  web: ["web", "web"],
-  bot: ["bot", "bot"],
-  ai: ["ai", "ai"],
-  brand: ["brand", "brand"],
-};
+// `c` = text key srv.<id>.c<c>; defaults to the slide number, set it to
+// reuse one case text across several photos.
+type SlideDef = { img?: string; imgPos?: string; play?: boolean; c?: number };
 
-const PLAY: Record<SvcKey, [boolean, boolean]> = {
-  web: [false, false],
-  bot: [true, false],
-  ai: [false, false],
-  brand: [false, false],
+// One entry per slide
+const SLIDES: Record<SvcKey, SlideDef[]> = {
+  web: [
+    { img: "/assets/cases/miltonroma.jpg" },
+    { img: "/assets/cases/fastsauna.jpg" },
+    { img: "/assets/cases/photographer.jpg", imgPos: "center 22%" },
+    { img: "/assets/cases/modofloors.jpg" },
+  ],
+  bot: [{ play: true }, {}],
+  ai: [{}, {}],
+  brand: Array.from({ length: 11 }, (_, i) => ({
+    img: `/assets/cases/hardsmart/${i + 1}.jpg`,
+    c: 1,
+  })),
 };
 
 export default async function ServicesPage({
@@ -39,14 +45,17 @@ export default async function ServicesPage({
   const base = `/${locale}`;
 
   const buildSlides = (id: SvcKey): Slide[] =>
-    ([1, 2] as const).map((n, idx) => ({
-      badge: t(`tag.${SLIDE_BADGES[id][idx]}`),
-      ph: "project · 1200×750",
-      play: PLAY[id][idx],
-      t: srv(`${id}.c${n}.t`),
-      d: srv(`${id}.c${n}.d`),
-      r: srv(`${id}.c${n}.r`),
-    }));
+    SLIDES[id].map(({ c, ...slide }, idx) => {
+      const key = `${id}.c${c ?? idx + 1}`;
+      return {
+        ...slide,
+        badge: t(`tag.${id}`),
+        ph: "project · 1200×750",
+        t: srv(`${key}.t`),
+        d: srv(`${key}.d`),
+        r: srv(`${key}.r`),
+      };
+    });
 
   return (
     <>
