@@ -333,4 +333,26 @@ export default {
     form: { title: "Tell us about the project" },
     ch: { title: "Our contacts" },
   },
+  seo: {
+    home: {
+      title: "EST 13 Web Studio — Websites & Telegram Bots",
+      description: "EST 13 is a digital studio building websites, Telegram bots, AI integrations and brand identities. Full cycle — from idea to launch and support.",
+    },
+    services: {
+      title: "Services: Websites, Telegram Bots, AI & Branding",
+      description: "Landing pages, corporate sites and e-commerce, Telegram bots for sales and support, AI integration into business workflows, and branding.",
+    },
+    cases: {
+      title: "Cases & Portfolio",
+      description: "EST 13 portfolio: websites for a hotel in Rome, a sauna in Kraków, a US photographer and Modo Floors, a Telegram bot and HARD&SMART branding.",
+    },
+    about: {
+      title: "About the Studio",
+      description: "EST 13 is a Kyiv-based team of designers and engineers blending technology with instinct. We work remotely with clients worldwide.",
+    },
+    contacts: {
+      title: "Contact Us — Discuss Your Project",
+      description: "Message EST 13 on Telegram or by email, or leave a request — we’ll get back with a solution outline within 24 hours.",
+    },
+  },
 } as const;

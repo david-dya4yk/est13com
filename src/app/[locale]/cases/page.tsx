@@ -6,8 +6,19 @@ import ProjectGrid from "@/components/cases/ProjectGrid";
 import CursorInvert from "@/components/cases/CursorInvert";
 import s from "@/components/cases/Cases.module.scss";
 import { ArrowRight } from "@/components/home/icons";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 type TFn = (key: string) => string;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return pageMetadata(locale, "cases");
+}
 
 export default async function CasesPage({
   params,
