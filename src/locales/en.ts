@@ -219,8 +219,7 @@ export default {
       d2: "Identity",
       d3: "Brand book",
       d4: "Tone of voice",
-      c1: { t: "HARD&SMART — identity from scratch", d: "Logo for a CrossFit training club: an H and S monogram built from two dumbbells, plus an “&” sign in the L-sit pose.", r: "new brand" },
-      c2: { t: "HARD&SMART — brandbook", d: "Colour palette, logo versions and usage rules so the brand looks the same on every medium.", r: "brandbook" },
+      c1: { t: "HARD&SMART — CrossFit club branding", d: "Identity from scratch: an H and S dumbbell monogram, palette and brandbook — carried through the app, merch, social media and the club's signage.", r: "brand identity" },
     },
     appr: {
       kicker: "Approach",
