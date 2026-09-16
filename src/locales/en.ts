@@ -217,8 +217,8 @@ export default {
       d2: "Identity",
       d3: "Brand book",
       d4: "Tone of voice",
-      c1: { t: "Identity from scratch", d: "Logo, palette and typography — a system that reads at first glance.", r: "new brand" },
-      c2: { t: "Rebranding & guidelines", d: "A refreshed image and usage rules across every brand medium.", r: "+recognition" },
+      c1: { t: "HARD&SMART — identity from scratch", d: "Logo for a CrossFit training club: an H and S monogram built from two dumbbells, plus an “&” sign in the L-sit pose.", r: "new brand" },
+      c2: { t: "HARD&SMART — brandbook", d: "Colour palette, logo versions and usage rules so the brand looks the same on every medium.", r: "brandbook" },
     },
     appr: {
       kicker: "Approach",

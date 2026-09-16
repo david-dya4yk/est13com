@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import s from "./Services.module.scss";
 
 export type Slide = {
   badge: string;
   ph: string;
+  img?: string;
   play?: boolean;
   t: string;
   d: string;
@@ -22,7 +24,20 @@ export default function MiniSlider({ slides }: { slides: Slide[] }) {
     <div className={s.slider}>
       <div className={s.stage}>
         <article className={s.slide}>
-          <div className={`${s.media} ph${slide.play ? " ph--play" : ""}`} data-ph={slide.ph}>
+          <div
+            className={`${s.media}${slide.img ? "" : ` ph${slide.play ? " ph--play" : ""}`}`}
+            data-ph={slide.img ? undefined : slide.ph}
+          >
+            {slide.img ? (
+              <Image
+                key={slide.img}
+                src={slide.img}
+                alt={slide.t}
+                fill
+                sizes="(max-width: 820px) 100vw, 50vw"
+                className={s.mediaImg}
+              />
+            ) : null}
             <span className={`tag ${s.badge}`}>{slide.badge}</span>
           </div>
           <div className={s.cap}>

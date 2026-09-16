@@ -132,6 +132,10 @@
   position: relative;
   aspect-ratio: 16 / 10;
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.mediaImg {
+  object-fit: cover;
 }
 .badge {
   position: absolute;

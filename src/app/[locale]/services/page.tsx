@@ -18,6 +18,10 @@ const SLIDE_BADGES: Record<SvcKey, [string, string]> = {
   brand: ["brand", "brand"],
 };
 
+const IMAGES: Partial<Record<SvcKey, [string, string]>> = {
+  brand: ["/assets/cases/hardsmart/1.jpg", "/assets/cases/hardsmart/4.jpg"],
+};
+
 const PLAY: Record<SvcKey, [boolean, boolean]> = {
   web: [false, false],
   bot: [true, false],
@@ -42,6 +46,7 @@ export default async function ServicesPage({
     ([1, 2] as const).map((n, idx) => ({
       badge: t(`tag.${SLIDE_BADGES[id][idx]}`),
       ph: "project · 1200×750",
+      img: IMAGES[id]?.[idx],
       play: PLAY[id][idx],
       t: srv(`${id}.c${n}.t`),
       d: srv(`${id}.c${n}.d`),
