@@ -8,6 +8,7 @@ export type Slide = {
   badge: string;
   ph: string;
   img?: string;
+  imgPos?: string;
   play?: boolean;
   t: string;
   d: string;
@@ -36,6 +37,7 @@ export default function MiniSlider({ slides }: { slides: Slide[] }) {
                 fill
                 sizes="(max-width: 820px) 100vw, 50vw"
                 className={s.mediaImg}
+                style={slide.imgPos ? { objectPosition: slide.imgPos } : undefined}
               />
             ) : null}
             <span className={`tag ${s.badge}`}>{slide.badge}</span>

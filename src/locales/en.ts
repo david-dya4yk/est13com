@@ -187,8 +187,10 @@ export default {
       d2: "Corporate sites",
       d3: "E-commerce",
       d4: "Web apps",
-      c1: { t: "Product launch landing", d: "A single-page site focused on conversion: a clear offer, social proof and a lead form.", r: "+38% conversions" },
-      c2: { t: "Corporate services site", d: "A multi-page site with a service catalog, cases and form integrations.", r: "×2 sales" },
+      c1: { t: "Hotel Milton Roma — 4★ hotel in Rome", d: "Website for a four-star hotel in Rome's historic centre: rooms, atmosphere and direct booking.", r: "hotel website" },
+      c2: { t: "Fast Sauna — private sauna in Krakow", d: "Landing page with online booking for a private Finnish sauna and hot tub near Krakow.", r: "landing page" },
+      c3: { t: "Alexa Bodnar — photographer's website", d: "Portfolio for a Minnesota wedding & lifestyle photographer: a cinematic gallery and online session booking.", r: "portfolio" },
+      c4: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring and remodeling company: service catalog, project showcase and a free estimate request.", r: "corporate website" },
     },
     bot: {
       bignum: "02 — BOTS",

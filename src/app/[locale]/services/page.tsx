@@ -11,22 +11,22 @@ type TFn = (key: string) => string;
 const SERVICES = ["web", "bot", "ai", "brand"] as const;
 type SvcKey = (typeof SERVICES)[number];
 
-const SLIDE_BADGES: Record<SvcKey, [string, string]> = {
-  web: ["web", "web"],
-  bot: ["bot", "bot"],
-  ai: ["ai", "ai"],
-  brand: ["brand", "brand"],
-};
+type SlideDef = { img?: string; imgPos?: string; play?: boolean };
 
-const IMAGES: Partial<Record<SvcKey, [string, string]>> = {
-  brand: ["/assets/cases/hardsmart/1.jpg", "/assets/cases/hardsmart/4.jpg"],
-};
-
-const PLAY: Record<SvcKey, [boolean, boolean]> = {
-  web: [false, false],
-  bot: [true, false],
-  ai: [false, false],
-  brand: [false, false],
+// One entry per slide; texts come from srv.<id>.c<n>
+const SLIDES: Record<SvcKey, SlideDef[]> = {
+  web: [
+    { img: "/assets/cases/miltonroma.jpg" },
+    { img: "/assets/cases/fastsauna.jpg" },
+    { img: "/assets/cases/photographer.jpg", imgPos: "center 22%" },
+    { img: "/assets/cases/modofloors.jpg" },
+  ],
+  bot: [{ play: true }, {}],
+  ai: [{}, {}],
+  brand: [
+    { img: "/assets/cases/hardsmart/1.jpg" },
+    { img: "/assets/cases/hardsmart/4.jpg" },
+  ],
 };
 
 export default async function ServicesPage({
@@ -43,14 +43,13 @@ export default async function ServicesPage({
   const base = `/${locale}`;
 
   const buildSlides = (id: SvcKey): Slide[] =>
-    ([1, 2] as const).map((n, idx) => ({
-      badge: t(`tag.${SLIDE_BADGES[id][idx]}`),
+    SLIDES[id].map((slide, idx) => ({
+      ...slide,
+      badge: t(`tag.${id}`),
       ph: "project · 1200×750",
-      img: IMAGES[id]?.[idx],
-      play: PLAY[id][idx],
-      t: srv(`${id}.c${n}.t`),
-      d: srv(`${id}.c${n}.d`),
-      r: srv(`${id}.c${n}.r`),
+      t: srv(`${id}.c${idx + 1}.t`),
+      d: srv(`${id}.c${idx + 1}.d`),
+      r: srv(`${id}.c${idx + 1}.r`),
     }));
 
   return (
