@@ -62,6 +62,11 @@ export default {
         d: "Portfolio website for a Minnesota wedding & lifestyle photographer. A cinematic gallery, brand story and online booking for sessions.",
         year: "2026",
       },
+      c4: {
+        t: "Modo Floors — flooring & remodeling",
+        d: "Website for a US flooring sales, installation and turnkey remodeling company. Service catalog, project showcase and a free on-site estimate request.",
+        year: "2026",
+      },
     },
     tag: {
       web: "Website",
