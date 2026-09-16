@@ -9,6 +9,7 @@ export type Slide = {
   ph: string;
   img?: string;
   imgPos?: string;
+  video?: string;
   play?: boolean;
   t: string;
   d: string;
@@ -29,7 +30,20 @@ export default function MiniSlider({ slides }: { slides: Slide[] }) {
             className={`${s.media}${slide.img ? "" : ` ph${slide.play ? " ph--play" : ""}`}`}
             data-ph={slide.img ? undefined : slide.ph}
           >
-            {slide.img ? (
+            {slide.video ? (
+              <video
+                key={slide.video}
+                src={slide.video}
+                poster={slide.img}
+                className={s.mediaVideo}
+                aria-label={slide.t}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              />
+            ) : slide.img ? (
               <Image
                 key={slide.img}
                 src={slide.img}
@@ -49,31 +63,33 @@ export default function MiniSlider({ slides }: { slides: Slide[] }) {
           </div>
         </article>
       </div>
-      <div className={s.nav}>
-        <div className={s.dots}>
-          {slides.map((_, k) => (
-            <button
-              key={k}
-              type="button"
-              className={`${s.dot} ${k === i ? s.on : ""}`}
-              aria-label={`Slide ${k + 1}`}
-              onClick={() => go(k)}
-            />
-          ))}
+      {n > 1 ? (
+        <div className={s.nav}>
+          <div className={s.dots}>
+            {slides.map((_, k) => (
+              <button
+                key={k}
+                type="button"
+                className={`${s.dot} ${k === i ? s.on : ""}`}
+                aria-label={`Slide ${k + 1}`}
+                onClick={() => go(k)}
+              />
+            ))}
+          </div>
+          <div className={s.arrows}>
+            <button type="button" aria-label="Prev" onClick={() => go(i - 1)}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button type="button" aria-label="Next" onClick={() => go(i + 1)}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div className={s.arrows}>
-          <button type="button" aria-label="Prev" onClick={() => go(i - 1)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-              <path d="M19 12H5M11 6l-6 6 6 6" />
-            </svg>
-          </button>
-          <button type="button" aria-label="Next" onClick={() => go(i + 1)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </button>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 }
