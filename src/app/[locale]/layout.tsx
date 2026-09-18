@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import SvgDefs from "@/components/SvgDefs";
 import PageTransition from "@/components/PageTransition";
 import { Analytics } from "@vercel/analytics/next";
-import { CONTACT, SITE_NAME, SITE_URL, dict, jsonLd, toLocale } from "@/lib/seo";
+import { CONTACT, SITE_NAME, SITE_URL, SOCIAL_PROFILES, dict, jsonLd, toLocale } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getStaticParams();
@@ -38,7 +38,7 @@ export default async function LocaleLayout({
         email: CONTACT.email,
         slogan: "Code meets instinct",
         description,
-        sameAs: [CONTACT.telegram],
+        sameAs: SOCIAL_PROFILES,
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "sales",

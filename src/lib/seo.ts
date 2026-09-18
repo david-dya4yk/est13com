@@ -21,7 +21,18 @@ export const PAGE_PATHS: Record<SeoPage, string> = {
 export const CONTACT = {
   email: "est13com@gmail.com",
   telegram: "https://t.me/est13studio",
+  telegramHandle: "@est13studio",
+  instagram: "https://www.instagram.com/est13com",
+  threads: "https://www.threads.com/@est13com",
+  socialHandle: "@est13com",
 };
+
+/** Profiles listed as sameAs in the Organization schema. */
+export const SOCIAL_PROFILES = [
+  CONTACT.telegram,
+  CONTACT.instagram,
+  CONTACT.threads,
+];
 
 const OG_LOCALE: Record<Locale, string> = { uk: "uk_UA", en: "en_US" };
 
