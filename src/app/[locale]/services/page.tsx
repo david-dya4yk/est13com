@@ -36,6 +36,10 @@ const SLIDES: Record<SvcKey, SlideDef[]> = {
       img: "/assets/cases/est13-bot/poster.jpg",
       video: "/assets/cases/est13-bot/demo.mp4",
     },
+    {
+      img: "/assets/cases/lotus-bot/poster.jpg",
+      video: "/assets/cases/lotus-bot/demo.mp4",
+    },
   ],
   ai: [{}, {}],
   brand: Array.from({ length: 11 }, (_, i) => ({

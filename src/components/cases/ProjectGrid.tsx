@@ -32,6 +32,7 @@ const PROJECTS: Project[] = [
   { key: "p5", cats: ["web", "brand"], tags: ["web", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/modofloors.jpg", logo: "/assets/cases/modofloors-logo.svg", href: "https://modofloors.com/" },
   { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: Array.from({ length: 11 }, (_, i) => i + 1).map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
   { key: "p6", cats: ["bot"], tags: ["bot", "dev"], year: "2026", wide: true, ph: "video · 1920×1080", img: "/assets/cases/est13-bot/poster.jpg", video: "/assets/cases/est13-bot/demo.mp4", logo: "/assets/est13_mark.png", gallery: ["/assets/cases/est13-bot/demo.mp4"] },
+  { key: "p8", cats: ["bot"], tags: ["bot", "dev"], year: "2026", wide: true, ph: "video · 1920×1080", img: "/assets/cases/lotus-bot/poster.jpg", video: "/assets/cases/lotus-bot/demo.mp4", gallery: ["/assets/cases/lotus-bot/demo.mp4"] },
 ];
 
 const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
