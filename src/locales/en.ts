@@ -220,6 +220,11 @@ export default {
       d3: "Brand book",
       d4: "Tone of voice",
       c1: { t: "HARD&SMART — CrossFit club branding", d: "Identity from scratch: an H and S dumbbell monogram, palette and brandbook — carried through the app, merch, social media and the club's signage.", r: "brand identity" },
+      c2: { t: "American Wheels — car importer rebrand", d: "A full rebrand: a two-arrow monogram, chrome lettering, palette, merch and a racer mascot for outdoor advertising.", r: "rebrand" },
+      c3: { t: "ETERNA Hotel & SPA — hotel identity", d: "An E monogram, palette and print for a hotel in the Carpathians: door hangers, key cards, business cards and direct-booking layouts.", r: "hotel identity" },
+      c4: { t: "Barvinok Smart — brand refresh", d: "A refreshed logo with a monochrome version plus a social media design system: post templates, graphic elements and outdoor ad layouts.", r: "design system" },
+      c5: { t: "Butterfly House — park sub-brand", d: "Identity for the butterfly house at Ven Greenery park: a butterfly mark, tropical illustrations, wayfinding, posters, species cards and merch.", r: "sub-brand" },
+      c6: { t: "NŌM — sandwich bar brand", d: "The NŌM logo, characters and food illustrations, palette, “Make it a set” posters, packaging and merch for a sando sandwich bar.", r: "logo & identity" },
     },
     appr: {
       kicker: "Approach",
@@ -271,6 +276,11 @@ export default {
     p7: { t: "HARD&SMART — CrossFit club branding", d: "Brand identity for a CrossFit training club: an H and S monogram built from two dumbbells, an “&” sign in the L-sit pose, a colour palette and a brandbook." },
     p6: { t: "EST 13 — Telegram bot & lead CRM", d: "A Telegram bot with a Mini App collects a project brief step by step and lets clients track their requests. Leads land in an admin panel with statuses, a dashboard, chats, broadcasts and editable bot texts." },
     p8: { t: "Lotus Project — Telegram bot for a pool & restaurant", d: "A bot for Lotus pool and the Black Lotus restaurant & karaoke: tonight's events, party photo reports, the menu and booth booking — a date calendar, time slots, party size and a contact for confirmation." },
+    p9: { t: "American Wheels — car importer rebrand", d: "A full rebrand for a car sourcing and import company: a monogram built from two arrows, chrome lettering, a black-and-red palette, merch carrying car brand logos and a racer mascot for billboards." },
+    p10: { t: "ETERNA Hotel & SPA — hotel identity", d: "Identity for a hotel and spa in the Carpathians: an E monogram, palette and graphic element set, in-room print — door hangers, key cards, business cards — and layouts promoting direct booking." },
+    p11: { t: "Barvinok Smart — brand refresh", d: "A refreshed logo for a stationery and book retail chain: a realigned mark, a monochrome version and a social media design system — post templates, graphic elements and outdoor ad layouts." },
+    p12: { t: "Butterfly House — park sub-brand", d: "Identity for the butterfly house at the Ven Greenery family park: a butterfly mark, illustrations of tropical animals and plants, park wayfinding, posters, species cards and merch." },
+    p13: { t: "NŌM — sandwich bar brand", d: "Logo and identity for a sando sandwich bar: the NŌM mark, three characters, food illustrations, a palette, “Make it a set” posters, packaging, menus and merch." },
     gallery: { open: "View project", watch: "Watch video", prev: "Previous", next: "Next", close: "Close" },
     note: "",
     cta: { t: "Want a result like this?", d: "Tell us about your task — and your project will be next on this list." },
@@ -346,7 +356,7 @@ export default {
     },
     cases: {
       title: "Cases & Portfolio",
-      description: "EST 13 portfolio: websites for a hotel in Rome, a sauna in Kraków, a US photographer and Modo Floors, Telegram bots and HARD&SMART branding.",
+      description: "EST 13 portfolio: websites for a hotel in Rome, a sauna in Kraków, a US photographer and Modo Floors, Telegram bots and branding for American Wheels, ETERNA and NŌM.",
     },
     about: {
       title: "About the Studio",

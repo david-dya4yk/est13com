@@ -23,6 +23,17 @@ type SlideDef = {
   c?: number;
 };
 
+// Brand cases whose slides share one text key (srv.brand.c<n>)
+const BRAND_CASES = [
+  { dir: "american-wheels", count: 3 },
+  { dir: "eterna", count: 3 },
+  { dir: "barvinok", count: 3 },
+  { dir: "butterfly-house", count: 2 },
+  { dir: "nom", count: 3 },
+].map((b) => ({
+  slides: Array.from({ length: b.count }, (_, i) => `/assets/cases/${b.dir}/${i + 1}.jpg`),
+}));
+
 // One entry per slide
 const SLIDES: Record<SvcKey, SlideDef[]> = {
   web: [
@@ -42,10 +53,15 @@ const SLIDES: Record<SvcKey, SlideDef[]> = {
     },
   ],
   ai: [{}, {}],
-  brand: Array.from({ length: 11 }, (_, i) => ({
-    img: `/assets/cases/hardsmart/${i + 1}.jpg`,
-    c: 1,
-  })),
+  brand: [
+    ...Array.from({ length: 11 }, (_, i) => ({
+      img: `/assets/cases/hardsmart/${i + 1}.jpg`,
+      c: 1,
+    })),
+    ...BRAND_CASES.flatMap((b, n) =>
+      b.slides.map((src) => ({ img: src, c: n + 2 })),
+    ),
+  ],
 };
 
 export async function generateMetadata({

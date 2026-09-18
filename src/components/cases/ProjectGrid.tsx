@@ -33,6 +33,11 @@ const PROJECTS: Project[] = [
   { key: "p7", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1600×1000", img: "/assets/cases/hardsmart/1.jpg", logo: "/assets/cases/hardsmart-logo.png", gallery: Array.from({ length: 11 }, (_, i) => i + 1).map((n) => `/assets/cases/hardsmart/${n}.jpg`) },
   { key: "p6", cats: ["bot"], tags: ["bot", "dev"], year: "2026", wide: true, ph: "video · 1920×1080", img: "/assets/cases/est13-bot/poster.jpg", video: "/assets/cases/est13-bot/demo.mp4", logo: "/assets/est13_mark.png", gallery: ["/assets/cases/est13-bot/demo.mp4"] },
   { key: "p8", cats: ["bot"], tags: ["bot", "dev"], year: "2026", wide: true, ph: "video · 1920×1080", img: "/assets/cases/lotus-bot/poster.jpg", video: "/assets/cases/lotus-bot/demo.mp4", gallery: ["/assets/cases/lotus-bot/demo.mp4"] },
+  { key: "p9", cats: ["brand"], tags: ["brand", "design"], year: "2026", wide: true, ph: "project · 1920×1066", img: "/assets/cases/american-wheels/1.jpg", gallery: [1, 2, 3].map((n) => `/assets/cases/american-wheels/${n}.jpg`) },
+  { key: "p10", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1920×1066", img: "/assets/cases/eterna/1.jpg", gallery: [1, 2, 3].map((n) => `/assets/cases/eterna/${n}.jpg`) },
+  { key: "p11", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1920×1066", img: "/assets/cases/barvinok/1.jpg", gallery: [1, 2, 3].map((n) => `/assets/cases/barvinok/${n}.jpg`) },
+  { key: "p12", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1920×1066", img: "/assets/cases/butterfly-house/1.jpg", gallery: [1, 2].map((n) => `/assets/cases/butterfly-house/${n}.jpg`) },
+  { key: "p13", cats: ["brand"], tags: ["brand", "design"], year: "2026", ph: "project · 1920×1066", img: "/assets/cases/nom/1.jpg", gallery: [1, 2, 3].map((n) => `/assets/cases/nom/${n}.jpg`) },
 ];
 
 const FILTERS: Filter[] = ["all", "web", "bot", "ai", "brand"];
