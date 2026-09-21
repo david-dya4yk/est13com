@@ -22,7 +22,7 @@ const FLOW = ["s1", "s2", "s3", "s4", "s5"] as const;
 const CASES = [
   {
     key: "c1",
-    tags: ["web", "brand"],
+    tags: ["web"],
     year: "2026",
     img: "/assets/cases/miltonroma.jpg",
     logo: "/assets/cases/miltonroma-logo.png",
