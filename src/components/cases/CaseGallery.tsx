@@ -21,8 +21,10 @@ export default function CaseGallery({ images, title, labels, onClose }: Props) {
     const dlg = ref.current;
     dlg?.showModal();
     document.documentElement.style.overflow = "hidden";
+    document.documentElement.dataset.modal = "open";
     return () => {
       document.documentElement.style.overflow = "";
+      delete document.documentElement.dataset.modal;
       if (dlg?.open) dlg.close();
     };
   }, []);
