@@ -21,8 +21,10 @@ export default function CaseGallery({ images, title, labels, onClose }: Props) {
     const dlg = ref.current;
     dlg?.showModal();
     document.documentElement.style.overflow = "hidden";
+    document.documentElement.dataset.modal = "open";
     return () => {
       document.documentElement.style.overflow = "";
+      delete document.documentElement.dataset.modal;
       if (dlg?.open) dlg.close();
     };
   }, []);
@@ -32,7 +34,12 @@ export default function CaseGallery({ images, title, labels, onClose }: Props) {
       ref={ref}
       className={s.gallery}
       aria-label={title}
-      onClose={onClose}
+      // In dev, Strict Mode runs the effect twice: the first cleanup closes the
+      // dialog and the second setup reopens it, so the stale close event arrives
+      // while the dialog is open again. Only a real close should unmount us.
+      onClose={() => {
+        if (!ref.current?.open) onClose();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) ref.current?.close();
       }}

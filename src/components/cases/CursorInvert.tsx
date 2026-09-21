@@ -19,6 +19,10 @@ export default function CursorInvert() {
     let raf = 0;
     let started = false;
 
+    // A modal <dialog> renders in the top layer, above every z-index, so this
+    // cursor would be hidden behind it — fall back to the native one instead.
+    const modalOpen = () => document.documentElement.dataset.modal === "open";
+
     const tick = () => {
       raf = 0;
       cx += (x - cx) * 0.22;
@@ -36,15 +40,26 @@ export default function CursorInvert() {
         started = true;
         cx = x;
         cy = y;
-        el.classList.add(s.on);
       }
+      el.classList.toggle(s.on, !modalOpen());
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
     const onLeave = () => el.classList.remove(s.on);
     const onEnter = () => {
-      if (started) el.classList.add(s.on);
+      if (started && !modalOpen()) el.classList.add(s.on);
     };
+
+    const syncModal = () => {
+      const modal = modalOpen();
+      document.body.classList.toggle(s.hideCursor, !modal);
+      el.classList.toggle(s.on, started && !modal);
+    };
+    const observer = new MutationObserver(syncModal);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-modal"],
+    });
 
     document.body.classList.add(s.hideCursor);
     window.addEventListener("mousemove", onMove);
@@ -52,6 +67,7 @@ export default function CursorInvert() {
     document.addEventListener("mouseenter", onEnter);
 
     return () => {
+      observer.disconnect();
       document.body.classList.remove(s.hideCursor);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
