@@ -3,7 +3,7 @@ import { setStaticParamsLocale } from "next-international/server";
 import { getI18n, getCurrentLocale, getScopedI18n } from "@/locales/server";
 import PageHero from "@/components/PageHero";
 import s from "@/components/services/Services.module.scss";
-import MiniSlider, { type Slide } from "@/components/services/MiniSlider";
+import MiniSlider, { type Project, type Slide } from "@/components/services/MiniSlider";
 import ServiceForm from "@/components/services/ServiceForm";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
@@ -23,19 +23,22 @@ type SlideDef = {
   c?: number;
 };
 
-// Brand cases whose slides share one text key (srv.brand.c<n>)
-const BRAND_CASES = [
-  { dir: "american-wheels", count: 3 },
-  { dir: "eterna", count: 3 },
-  { dir: "barvinok", count: 3 },
-  { dir: "butterfly-house", count: 2 },
-  { dir: "nom", count: 3 },
-].map((b) => ({
-  slides: Array.from({ length: b.count }, (_, i) => `/assets/cases/${b.dir}/${i + 1}.jpg`),
-}));
+const photos = (dir: string, count: number) =>
+  Array.from({ length: count }, (_, i) => `/assets/cases/${dir}/${i + 1}.jpg`);
 
-// One entry per slide
-const SLIDES: Record<SvcKey, SlideDef[]> = {
+// The branding slider is nested: tabs switch the case (text key srv.brand.c<c>),
+// arrows walk the photos of that case.
+const BRAND_PROJECTS = [
+  { c: 1, imgs: photos("hardsmart", 11) },
+  { c: 2, imgs: photos("american-wheels", 3) },
+  { c: 3, imgs: photos("eterna", 3) },
+  { c: 4, imgs: photos("barvinok", 3) },
+  { c: 5, imgs: photos("butterfly-house", 2) },
+  { c: 6, imgs: photos("nom", 3) },
+];
+
+// One entry per slide; branding lives in BRAND_PROJECTS instead
+const SLIDES: Record<Exclude<SvcKey, "brand">, SlideDef[]> = {
   web: [
     { img: "/assets/cases/miltonroma.jpg" },
     { img: "/assets/cases/fastsauna.jpg" },
@@ -53,15 +56,6 @@ const SLIDES: Record<SvcKey, SlideDef[]> = {
     },
   ],
   ai: [{}, {}],
-  brand: [
-    ...Array.from({ length: 11 }, (_, i) => ({
-      img: `/assets/cases/hardsmart/${i + 1}.jpg`,
-      c: 1,
-    })),
-    ...BRAND_CASES.flatMap((b, n) =>
-      b.slides.map((src) => ({ img: src, c: n + 2 })),
-    ),
-  ],
 };
 
 export async function generateMetadata({
@@ -86,18 +80,24 @@ export default async function ServicesPage({
   const locale = await getCurrentLocale();
   const base = `/${locale}`;
 
-  const buildSlides = (id: SvcKey): Slide[] =>
-    SLIDES[id].map(({ c, ...slide }, idx) => {
-      const key = `${id}.c${c ?? idx + 1}`;
-      return {
-        ...slide,
-        badge: t(`tag.${id}`),
-        ph: "project · 1200×750",
-        t: srv(`${key}.t`),
-        d: srv(`${key}.d`),
-        r: srv(`${key}.r`),
-      };
-    });
+  const makeSlide = (id: SvcKey, slide: Omit<SlideDef, "c">, key: string): Slide => ({
+    ...slide,
+    badge: t(`tag.${id}`),
+    ph: "project · 1200×750",
+    t: srv(`${key}.t`),
+    d: srv(`${key}.d`),
+    r: srv(`${key}.r`),
+  });
+
+  const buildSlides = (id: Exclude<SvcKey, "brand">): Slide[] =>
+    SLIDES[id].map(({ c, ...slide }, idx) =>
+      makeSlide(id, slide, `${id}.c${c ?? idx + 1}`),
+    );
+
+  const brandProjects: Project[] = BRAND_PROJECTS.map(({ c, imgs }) => ({
+    name: srv(`brand.c${c}.n`),
+    slides: imgs.map((img) => makeSlide("brand", { img }, `brand.c${c}`)),
+  }));
 
   return (
     <>
@@ -136,7 +136,11 @@ export default async function ServicesPage({
                 <span>{t("cta.start")}</span>
               </Link>
             </div>
-            <MiniSlider slides={buildSlides(id)} />
+            {id === "brand" ? (
+              <MiniSlider projects={brandProjects} />
+            ) : (
+              <MiniSlider slides={buildSlides(id)} />
+            )}
           </div>
         </section>
       ))}
