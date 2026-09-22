@@ -193,9 +193,38 @@
   padding: 16px clamp(22px, 2.2vw, 30px);
   border-top: 1px solid var(--line);
 }
+.projTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.projTab {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 15px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: 0.25s;
+
+  &:hover {
+    border-color: var(--line-2);
+    color: var(--ink);
+  }
+  &.on {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #000;
+  }
+}
+.count {
+  min-width: 56px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
 .dots {
   display: flex;
-  // The brand slider carries 22 slides — let the dots wrap on narrow screens.
   flex-wrap: wrap;
   gap: 8px;
 }
