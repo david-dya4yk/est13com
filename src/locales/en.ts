@@ -191,6 +191,7 @@ export default {
       c2: { t: "Fast Sauna — private sauna in Krakow", d: "Landing page with online booking for a private Finnish sauna and hot tub near Krakow.", r: "landing page" },
       c3: { t: "Alexa Bodnar — photographer's website", d: "Portfolio for a Minnesota wedding & lifestyle photographer: a cinematic gallery and online session booking.", r: "portfolio" },
       c4: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring and remodeling company: service catalog, project showcase and a free estimate request.", r: "corporate website" },
+      c5: { t: "ZIRKA — property developer in Chernivtsi", d: "Design and development of a website for a full-cycle developer in Chernivtsi: construction stages, a project catalog, special offers and an apartment request.", r: "design + website" },
     },
     bot: {
       bignum: "02 — BOTS",
@@ -273,6 +274,7 @@ export default {
     p2: { t: "Fast Sauna — private sauna in Krakow", d: "Landing page for a private Finnish sauna and hot tub near Krakow. Online booking with guaranteed privacy, up to 12 guests, and easy selection of hours and add-ons." },
     p3: { t: "Alexa Bodnar — photographer's website", d: "Portfolio website for a Minnesota wedding & lifestyle photographer. A cinematic gallery of work, brand story and online booking for sessions." },
     p5: { t: "Modo Floors — flooring & remodeling", d: "Website for a US flooring sales, installation and turnkey remodeling company. Service catalog, project showcase and a free on-site estimate request." },
+    p14: { t: "ZIRKA — property developer in Chernivtsi", d: "Website design and development for a full-cycle property developer building in Chernivtsi since 2005. Construction stages of the new residential complex, a catalog of completed projects, special offers and an apartment request form." },
     p7: { t: "HARD&SMART — CrossFit club branding", d: "Brand identity for a CrossFit training club: an H and S monogram built from two dumbbells, an “&” sign in the L-sit pose, a colour palette and a brandbook." },
     p6: { t: "EST 13 — Telegram bot & lead CRM", d: "A Telegram bot with a Mini App collects a project brief step by step and lets clients track their requests. Leads land in an admin panel with statuses, a dashboard, chats, broadcasts and editable bot texts." },
     p8: { t: "Lotus Project — Telegram bot for a pool & restaurant", d: "A bot for Lotus pool and the Black Lotus restaurant & karaoke: tonight's events, party photo reports, the menu and booth booking — a date calendar, time slots, party size and a contact for confirmation." },

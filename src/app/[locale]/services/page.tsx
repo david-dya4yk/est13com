@@ -44,6 +44,7 @@ const SLIDES: Record<Exclude<SvcKey, "brand">, SlideDef[]> = {
     { img: "/assets/cases/fastsauna.jpg" },
     { img: "/assets/cases/photographer.jpg", imgPos: "center 22%" },
     { img: "/assets/cases/modofloors.jpg" },
+    { img: "/assets/cases/zirka.jpg" },
   ],
   bot: [
     {
