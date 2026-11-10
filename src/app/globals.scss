@@ -511,29 +511,67 @@ h4 {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background-color: #000;
-  background-image: url("/assets/transition-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  clip-path: inset(0 100% 0 0);
+  background: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+
+  &__rain {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    transform: translateY(-2%);
+  }
+
+  // Soft red vignette so the rain reads as brand, not stock "matrix" green.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(8, 8, 10, 0.85) 100%);
+    pointer-events: none;
+  }
 }
 
 .page-curtain--entering {
   pointer-events: auto;
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 900ms cubic-bezier(0.7, 0, 0.3, 1);
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 850ms cubic-bezier(0.65, 0, 0.35, 1);
+
+  .page-curtain__rain {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms 150ms cubic-bezier(0.33, 1, 0.68, 1),
+      transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 .page-curtain--holding {
   pointer-events: auto;
-  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  opacity: 1;
+
+  .page-curtain__rain {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .page-curtain--leaving {
   pointer-events: auto;
-  clip-path: inset(0 0 0 100%);
-  transition: clip-path 900ms cubic-bezier(0.7, 0, 0.3, 1);
+  visibility: visible;
+  opacity: 0;
+  transition: opacity 1000ms 100ms cubic-bezier(0.65, 0, 0.35, 1);
+
+  .page-curtain__rain {
+    opacity: 0;
+    transform: translateY(2%);
+    transition:
+      opacity 700ms cubic-bezier(0.32, 0, 0.67, 0),
+      transform 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
 }
 
 body.vt-locked {
@@ -544,5 +582,8 @@ body.vt-locked {
   .page-curtain--entering,
   .page-curtain--leaving {
     transition-duration: 0s;
+  }
+  .page-curtain__rain {
+    display: none;
   }
 }
