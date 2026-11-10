@@ -2,10 +2,11 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import HackerRain from "./HackerRain";
 
-const SLIDE_IN_MS = 900;
-const HOLD_MS = 400;
-const SLIDE_OUT_MS = 900;
+const SLIDE_IN_MS = 850;
+const HOLD_MS = 500;
+const SLIDE_OUT_MS = 1000;
 
 type Phase = "idle" | "entering" | "holding" | "leaving";
 
@@ -73,7 +74,9 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      <div className={`page-curtain page-curtain--${phase}`} aria-hidden="true" />
+      <div className={`page-curtain page-curtain--${phase}`} aria-hidden="true">
+        <HackerRain active={phase !== "idle"} className="page-curtain__rain" />
+      </div>
     </>
   );
 }

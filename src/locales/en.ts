@@ -24,6 +24,8 @@ export default {
     contact: "Contacts",
     rights: "© 2026 EST 13. All rights reserved.",
     privacy: "Privacy policy",
+    paint: "hover to paint",
+    paintTouch: "swipe to paint",
     l: { home: "Home", cases: "Cases", about: "About", faq: "FAQ" },
   },
   home: {

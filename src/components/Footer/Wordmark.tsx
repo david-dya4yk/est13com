@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useI18n } from "@/locales/client";
 import s from "./Footer.module.scss";
+
+const DEMO_MS = 1700;
 
 export default function Wordmark({ fadeBack = false }: { fadeBack?: boolean }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ghostRef = useRef<HTMLSpanElement>(null);
+  const t = useI18n();
+  const [hint, setHint] = useState<"hidden" | "shown" | "used">("hidden");
 
   useEffect(() => {
     const box = boxRef.current;
@@ -86,17 +92,53 @@ export default function Wordmark({ fadeBack = false }: { fadeBack?: boolean }) {
       ctx.globalCompositeOperation = "source-over";
     };
 
-    const onMove = (e: MouseEvent) => {
-      cancelFade();
-      const rect = canvas.getBoundingClientRect();
-      spray(e.clientX - rect.left, e.clientY - rect.top);
+    // Spray along a segment so fast swipes still leave a continuous stroke.
+    const sprayLine = (ax: number, ay: number, bx: number, by: number) => {
+      const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) / 14));
+      for (let i = 1; i <= n; i++) spray(ax + ((bx - ax) * i) / n, ay + ((by - ay) * i) / n);
     };
 
-    const onLeave = () => {
-      if (!fadeBack) return;
+    let lastPt: { x: number; y: number } | null = null;
+
+    const markInteracted = () => {
+      if (interacted) return;
+      interacted = true;
+      stopDemo();
+      setHint("used");
+    };
+
+    const paintAt = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (lastPt) sprayLine(lastPt.x, lastPt.y, x, y);
+      else spray(x, y);
+      lastPt = { x, y };
+    };
+
+    const onDown = (e: PointerEvent) => {
+      markInteracted();
+      cancelFade();
+      lastPt = null;
+      paintAt(e);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      // Touch/pen paint only while in contact; a mouse paints on hover.
+      if (e.pointerType !== "mouse" && e.buttons === 0) return;
+      markInteracted();
+      cancelFade();
+      paintAt(e);
+    };
+
+    const onEnd = () => {
+      lastPt = null;
+    };
+
+    // Smoothly paint the mask back over whatever was sprayed.
+    const restore = (dur: number) => {
       cancelFade();
       const snap = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const dur = 1500;
       let start = 0;
       const step = (t: number) => {
         if (!start) start = t;
@@ -114,13 +156,88 @@ export default function Wordmark({ fadeBack = false }: { fadeBack?: boolean }) {
       fadeRaf = requestAnimationFrame(step);
     };
 
-    canvas.addEventListener("mousemove", onMove);
-    canvas.addEventListener("mouseleave", onLeave);
+    const onLeave = () => {
+      lastPt = null;
+      if (fadeBack) restore(1500);
+    };
+
+    // ---- Hint: a ghost brush sweeps across once, so people see it can be painted.
+    let interacted = false;
+    let demoRaf = 0;
+    let demoTimer = 0;
+    const ghost = ghostRef.current;
+
+    const stopDemo = () => {
+      if (demoRaf) cancelAnimationFrame(demoRaf);
+      if (demoTimer) window.clearTimeout(demoTimer);
+      demoRaf = 0;
+      demoTimer = 0;
+      ghost?.removeAttribute("data-on");
+    };
+
+    const runDemo = () => {
+      if (!ghost) return;
+      const pad = (w - box.getBoundingClientRect().width) / 2;
+      const x0 = pad + w * 0.04;
+      const x1 = w - pad - w * 0.04;
+      const pathAt = (p: number) => ({
+        x: x0 + (x1 - x0) * p,
+        y: h / 2 + Math.sin(p * Math.PI * 3) * h * 0.2,
+      });
+      ghost.setAttribute("data-on", "");
+      let start = 0;
+      let last = pathAt(0);
+      const step = (now: number) => {
+        if (interacted) return stopDemo();
+        if (!start) start = now;
+        const raw = Math.min(1, (now - start) / DEMO_MS);
+        const p = raw < 0.5 ? 4 * raw ** 3 : 1 - (-2 * raw + 2) ** 3 / 2;
+        const pt = pathAt(p);
+        sprayLine(last.x, last.y, pt.x, pt.y);
+        last = pt;
+        ghost.style.transform = `translate(${pt.x - pad}px, ${pt.y - pad}px)`;
+        if (raw < 1) {
+          demoRaf = requestAnimationFrame(step);
+        } else {
+          demoRaf = 0;
+          ghost.removeAttribute("data-on");
+          demoTimer = window.setTimeout(() => {
+            if (!interacted) restore(1100);
+            setHint((v) => (v === "hidden" ? "shown" : v));
+          }, 700);
+        }
+      };
+      demoRaf = requestAnimationFrame(step);
+    };
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        if (reduced) setHint("shown");
+        else demoTimer = window.setTimeout(runDemo, 350);
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(box);
+
+    canvas.addEventListener("pointerdown", onDown);
+    canvas.addEventListener("pointermove", onMove);
+    canvas.addEventListener("pointerup", onEnd);
+    canvas.addEventListener("pointercancel", onEnd);
+    canvas.addEventListener("pointerleave", onLeave);
     return () => {
       cancelFade();
+      stopDemo();
+      io.disconnect();
       ro.disconnect();
-      canvas.removeEventListener("mousemove", onMove);
-      canvas.removeEventListener("mouseleave", onLeave);
+      canvas.removeEventListener("pointerdown", onDown);
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerup", onEnd);
+      canvas.removeEventListener("pointercancel", onEnd);
+      canvas.removeEventListener("pointerleave", onLeave);
     };
   }, [fadeBack]);
 
@@ -141,6 +258,14 @@ export default function Wordmark({ fadeBack = false }: { fadeBack?: boolean }) {
         <span className={s.fwEst}>est</span>
         <span className={s.fw13}>13</span>
       </div>
+
+      <span ref={ghostRef} className={s.wmGhost} aria-hidden />
+
+      <span className={s.wmHint} data-state={hint} aria-hidden>
+        <i />
+        <span className={s.wmHintMouse}>{t("foot.paint")}</span>
+        <span className={s.wmHintTouch}>{t("foot.paintTouch")}</span>
+      </span>
     </div>
   );
 }

@@ -24,6 +24,8 @@ export default {
     contact: "Контакти",
     rights: "© 2026 EST 13. Усі права захищено.",
     privacy: "Політика конфіденційності",
+    paint: "наведи й замалюй",
+    paintTouch: "проведи пальцем",
     l: { home: "Головна", cases: "Кейси", about: "Про нас", faq: "FAQ" },
   },
   home: {

@@ -171,4 +171,110 @@
   left: 0;
   cursor: crosshair;
   z-index: 2;
+  // Horizontal swipes paint; vertical swipes still scroll the page.
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Ghost brush that demos the paint effect once.
+.wmGhost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  background: rgba(244, 243, 240, 0.12);
+  box-shadow: 0 0 24px var(--red-glow);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.4;
+  transition:
+    opacity 0.35s var(--ease),
+    scale 0.35s var(--ease-out);
+
+  &[data-on] {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.wmHint {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 22px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: rgba(14, 14, 17, 0.75);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  pointer-events: none;
+  opacity: 0;
+  translate: -50% 8px;
+  transition:
+    opacity 0.6s var(--ease),
+    translate 0.6s var(--ease-out);
+
+  &::before {
+    content: "[";
+    color: var(--red-ink);
+  }
+  &::after {
+    content: "]";
+    color: var(--red-ink);
+  }
+
+  i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 0 var(--red-glow);
+    animation: wmPulse 1.6s var(--ease) infinite;
+  }
+
+  &[data-state="shown"] {
+    opacity: 1;
+    translate: -50% 0;
+  }
+
+  .wmHintTouch {
+    display: none;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    font-size: 10px;
+    padding: 6px 12px;
+
+    .wmHintMouse {
+      display: none;
+    }
+    .wmHintTouch {
+      display: inline;
+    }
+  }
+}
+
+@keyframes wmPulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--red-glow);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(194, 15, 40, 0);
+  }
 }
