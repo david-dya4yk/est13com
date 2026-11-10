@@ -8,6 +8,7 @@ import s from "@/components/cases/Cases.module.scss";
 import { ArrowRight } from "@/components/home/icons";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import PageSchema from "@/components/PageSchema";
 
 type TFn = (key: string) => string;
 
@@ -35,6 +36,7 @@ export default async function CasesPage({
 
   return (
     <>
+      <PageSchema locale={paramLocale} page="cases" />
       <CursorInvert />
       <PageHero
         kicker={cs("kicker")}

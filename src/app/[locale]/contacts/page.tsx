@@ -6,6 +6,7 @@ import ContactForm from "@/components/contacts/ContactForm";
 import { CONTACT } from "@/lib/seo";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import PageSchema from "@/components/PageSchema";
 
 type TFn = (key: string) => string;
 
@@ -36,6 +37,7 @@ export default async function ContactsPage({
 
   return (
     <>
+      <PageSchema locale={paramLocale} page="contacts" />
       <section
         className="page-hero"
         style={{ paddingBottom: "clamp(30px, 4vw, 50px)" }}

@@ -6,6 +6,10 @@ RUN npm ci
 FROM node:22-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
+# Optional override of the Search Console token in src/lib/seo.ts (baked in at build):
+# docker build --build-arg GOOGLE_SITE_VERIFICATION=xxxx .
+ARG GOOGLE_SITE_VERIFICATION
+ENV GOOGLE_SITE_VERIFICATION=$GOOGLE_SITE_VERIFICATION
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
