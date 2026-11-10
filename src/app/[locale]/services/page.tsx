@@ -7,6 +7,7 @@ import MiniSlider, { type Project, type Slide } from "@/components/services/Mini
 import ServiceForm from "@/components/services/ServiceForm";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import PageSchema from "@/components/PageSchema";
 
 type TFn = (key: string) => string;
 
@@ -103,6 +104,7 @@ export default async function ServicesPage({
 
   return (
     <>
+      <PageSchema locale={paramLocale} page="services" />
       <PageHero
         kicker={srv("kicker")}
         title={srv("hero.title")}

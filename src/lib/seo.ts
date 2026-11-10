@@ -4,6 +4,14 @@ import enDict from "@/locales/en";
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://est13.com").replace(/\/$/, "");
 export const SITE_NAME = "EST 13";
+
+/**
+ * Google Search Console ownership token (the `content` of the
+ * `google-site-verification` meta tag). It is public by design. The env var
+ * overrides it at build time, since pages are statically rendered.
+ */
+export const GOOGLE_SITE_VERIFICATION =
+  process.env.GOOGLE_SITE_VERIFICATION?.trim() || "u9OxUwvXRtY0Lv_BWgagXrsZ66xMm2CISM04FsfZrVI";
 export const LOCALES = ["uk", "en"] as const;
 export const DEFAULT_LOCALE = "uk";
 

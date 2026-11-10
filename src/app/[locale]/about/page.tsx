@@ -8,6 +8,7 @@ import AboutFaq from "@/components/about/AboutFaq";
 import CountUp from "@/components/home/CountUp";
 import type { Metadata } from "next";
 import { pageMetadata, dict, jsonLd, toLocale } from "@/lib/seo";
+import PageSchema from "@/components/PageSchema";
 
 type TFn = (key: string) => string;
 
@@ -55,6 +56,7 @@ export default async function AboutPage({
 
   return (
     <>
+      <PageSchema locale={paramLocale} page="about" />
       <PageHero
         kicker={ab("kicker")}
         title={ab("hero.title")}
